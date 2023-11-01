@@ -33,10 +33,12 @@ public class LoginPage extends Pane {
 		this.getChildren().add(loginLayout);
 		this.setStyle("-fx-background-color: #FAC8CD");
 		this.heading.getStyleClass().add("heading");
+		this.heading.setFill(Color.GREEN);
 		this.emailHint.getStyleClass().add("hinttext");
 		this.passwordHint.getStyleClass().add("hinttext");
 		this.loginLayout.setSpacing(10);
 		this.loginLayout.setAlignment(Pos.CENTER);
+		
 	}
 	
 }
