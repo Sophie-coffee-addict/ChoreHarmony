@@ -4,56 +4,34 @@ import java.util.ArrayList;
 
 public class Database {
 	
-	private ArrayList<String> chores = new ArrayList<>();
-	private ArrayList<String> users = new ArrayList<>();
+	private ArrayList<Chore> chores = new ArrayList<>();
+	private ArrayList<User> users = new ArrayList<>();
 	
-	
-	
+	public Database(ArrayList<Chore> chores, ArrayList<User> users) {
+		super();
+		this.chores = chores;
+		this.users = users;
+	}
 	
 	public Database() {
 		super();
 	}
-
-
-	public Database(ArrayList<String> chores, ArrayList<String> users) {
-		super();
-		this.chores = chores;
-		this.users = users;
-	}
-
-
-	public void loadData() {
-		
-		
-	}
-	
-	
-	public void saveData() {
-		
-		
-		
-	}
-
-
-	public ArrayList<String> getChores() {
+	public ArrayList<Chore> getChores() {
 		return chores;
 	}
-
-
-	public void setChores(ArrayList<String> chores) {
+	public void setChores(ArrayList<Chore> chores) {
 		this.chores = chores;
 	}
-
-
-	public ArrayList<String> getUsers() {
+	public ArrayList<User> getUsers() {
 		return users;
 	}
-
-
-	public void setUsers(ArrayList<String> users) {
+	public void setUsers(ArrayList<User> users) {
 		this.users = users;
 	}
 	
+	
+	
+
 	
 
 }
