@@ -15,6 +15,7 @@ public class Database implements Serializable{
 
 	private ArrayList<Chore> chores = new ArrayList<>();
 	private ArrayList<User> users = new ArrayList<>();
+	private ArrayList<Household> households = new ArrayList<>();
 
 	public Database(ArrayList<Chore> chores, ArrayList<User> users) {
 		super();
@@ -43,7 +44,21 @@ public class Database implements Serializable{
 		
 	}
 	
-	 public static synchronized Database getInstance() 
+	
+	
+	 public ArrayList<Household> getHouseholds() {
+		return households;
+	}
+
+	public void setHouseholds(ArrayList<Household> households) {
+		this.households = households;
+	}
+	
+	public void addHousehold(Household household) {
+		households.add(household);
+	}
+
+	public static synchronized Database getInstance() 
 	    { 
 	        if (single_instance == null) 
 	            single_instance =  loadData();  // load your database eg: loadDb(String)
