@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 /**
@@ -26,8 +27,9 @@ public class Main extends Application {
 			primaryStage.setTitle("Register");
 			BorderPane borderPane = new BorderPane();
 			
-			 titleLabel = new Label("Creat Account");
+			 titleLabel = new Label("Create Account");
 		     titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+		     titleLabel.setMaxWidth(400);
 		     titleLabel.setAlignment(Pos.CENTER);
 		     borderPane.setTop(titleLabel);
 			
@@ -70,9 +72,11 @@ public class Main extends Application {
 	        outputLabel = new Label("");
 	        outputLabel.setWrapText(true);
 	        
-	        Button registerButton = new Button("Creat");
+	        Button registerButton = new Button("Create");
 	        registerButton.setPrefSize(150, 50);
 	        registerButton.setFont(new Font(20));
+	        registerButton.getStyleClass().add("button");
+	        registerButton.setTextFill(Color.web("#ffffff"));
 	        //GridPane.setConstraints(registerButton, 1, 4);
 	        
 	        
@@ -101,12 +105,13 @@ public class Main extends Application {
 	            } else if (!password.equals(confirmPassword)) {
 	                updateOutputLabel("Password does not match. Please try again.");
 	            } else {
-	                updateOutputLabel("Creat successful!");
+	                updateOutputLabel("Create successful!");
 	            }
 	        });
 	        
+	        borderPane.setStyle("-fx-background-color: #FAC8CD");
 	        Scene scene = new Scene(borderPane, 400, 800);
-	       scene.setFill(javafx.scene.paint.Color.LIGHTPINK);
+	        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
 	        
