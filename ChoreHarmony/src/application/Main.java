@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 /**
- * This is the main UI class.
+ * This is the main UI class.¡£
  */
 public class Main extends Application {
 	 private Label titleLabel;
