@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Chore implements Serializable {
-
+	
+	
 	private String name;
 	private int frequency;
 	private int startTime;
@@ -55,6 +56,26 @@ public class Chore implements Serializable {
 	public void setTeamTask(boolean teamTask) {
 		this.teamTask = teamTask;
 	}
+	public int getEffortOfChore() {
+		return EffortOfChore;
+	}
+	public void setEffortOfChore(int effortOfChore) {
+		EffortOfChore = effortOfChore;
+	}
+	public int getSelfSatisfactionOfTask() {
+		return selfSatisfactionOfTask;
+	}
+	public void setSelfSatisfactionOfTask(int selfSatisfactionOfTask) {
+		this.selfSatisfactionOfTask = selfSatisfactionOfTask;
+	}
+
+	@Override
+	public String toString() {
+		return "Chore [name=" + name + ", frequency=" + frequency + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", teamTask=" + teamTask + "]";
+	}
+	
+	
 
 	public ArrayList<User> getTeamMemberList() {
 		return teamMemberList;
