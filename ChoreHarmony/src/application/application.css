@@ -1,12 +1,12 @@
 .heading {
 	-fx-font-size: 30px;
-	-fx-padding : 25;
+	-fx-padding : 25px;
 	-fx-alignment:center;
 	-fx-text-fill: #629677;
 }/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 .hinttext {
 	-fx-font-size: 20px;
-	-fx-padding : 15;
+	-fx-padding : 15px;
 	-fx-text-fill: #629677;
 }
