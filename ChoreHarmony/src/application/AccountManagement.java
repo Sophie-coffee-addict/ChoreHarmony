@@ -30,14 +30,17 @@ public class AccountManagement {
 	}
 
 	// Choose a chore
-//	public void chooseChore(String email,String ChoreName, int frequency, int startTime, boolean teamTask, User teamMember)) {
-//		Chore chore = new Chore(ChoreName, frequency, startTime, false);
-//		for(User item: db.getUsers()) {
-//			if(item.getEmail().equalsIgnoreCase(email)) {
-//				item.addChore(chore);
-//			}
-//		}
-//	}
+	public Chore chooseChore(String email, String ChoreName, int frequency, int startTime, boolean teamTask) {
+		Chore chore = new Chore(ChoreName, frequency, startTime, false);
+		for (User item : db.getUsers()) {
+			if (item.getEmail().equalsIgnoreCase(email)) {
+				item.addChore(chore);
+				chore.addTeamMember(item);
+			}
+		}
+		return chore;
+	}
+
 	public Chore choosedChose(String email, String ChoreName, int frequency, int startTime, boolean teamTask,
 			User teamMember) {
 		Chore chore = new Chore(ChoreName, frequency, startTime, false);
