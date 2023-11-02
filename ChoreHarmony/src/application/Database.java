@@ -51,22 +51,22 @@ public class Database implements Serializable{
 //		
 //	}	
 
-	public ArrayList<Chore> getChores() {
-		return chores;
-	}
-
-	public void setChores(ArrayList<Chore> chores) {
-		this.chores = chores;
-	}
-
-	public ArrayList<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(ArrayList<User> users) {
-		this.users = users;
-		
-	}
+//	public ArrayList<Chore> getChores() {
+//		return chores;
+//	}
+//
+//	public void setChores(ArrayList<Chore> chores) {
+//		this.chores = chores;
+//	}
+//
+//	public ArrayList<User> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(ArrayList<User> users) {
+//		this.users = users;
+//		
+//	}
 	
 	
 	 public ArrayList<Household> getHouseholds() {
@@ -89,13 +89,13 @@ public class Database implements Serializable{
 	        return single_instance; 
 	    } 
 	 
-	 public void addChore(Chore chore) {
-		 chores.add(chore);
-	 }
-	 
-	 public void addUser(User user) {
-		 users.add(user);
-	 }
+//	 public void addChore(Chore chore) {
+//		 chores.add(chore);
+//	 }
+//	 
+//	 public void addUser(User user) {
+//		 users.add(user);
+//	 }
 	 
 	 public void saveData() throws IOException {
 //		 file = new File("householdDataBase");

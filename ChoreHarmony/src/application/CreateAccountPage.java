@@ -1,9 +1,13 @@
 package application;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -16,6 +20,19 @@ import javafx.scene.text.Font;
 public class CreateAccountPage extends BorderPane {
 	
 	Label outputLabel = new Label("");
+	Label titleLabel = new Label("Create Account");
+	GridPane grid = new GridPane();
+	Label householdLabel = new Label("Household Name:");
+	TextField nameField1 = new TextField();
+	Label nameLabel = new Label("Name:");
+	TextField nameField = new TextField();
+	Label emailLabel = new Label("Email:");
+	TextField emailField = new TextField();
+	Label passwordLabel = new Label("Password:");
+	PasswordField passwordField = new PasswordField();
+	Label confirmPasswordLabel = new Label("Confirm Password:");
+	PasswordField confirmPasswordField = new PasswordField();
+	Button registerButton = new Button("Create");
 	
 	private void updateOutputLabel(String text) {
        outputLabel.setText(outputLabel.getText() + "\n" + text);
@@ -33,19 +50,9 @@ public class CreateAccountPage extends BorderPane {
 	}
 	
 	
-	Label titleLabel = new Label("Create Account");
-	GridPane grid = new GridPane();
-	Label householdLabel = new Label("Household Name:");
-	TextField nameField1 = new TextField();
-	Label nameLabel = new Label("Name:");
-	TextField nameField = new TextField();
-	Label emailLabel = new Label("Email:");
-	TextField emailField = new TextField();
-	Label passwordLabel = new Label("Password:");
-	PasswordField passwordField = new PasswordField();
-	Label confirmPasswordLabel = new Label("Confirm Password:");
-	PasswordField confirmPasswordField = new PasswordField();
-	Button registerButton = new Button("Create");
+	
+	
+	
 
    
    
@@ -106,6 +113,7 @@ public class CreateAccountPage extends BorderPane {
 	  this.setCenter(grid);
 	  
 	  this.registerButton.setOnAction(e -> {
+		   String householdname = nameField1.getText();
 	       String name = nameField.getText();
 	       String email = emailField.getText();
 	       String password = passwordField.getText();
@@ -118,6 +126,27 @@ public class CreateAccountPage extends BorderPane {
 	       } else {
 	           updateOutputLabel("Create successful!");
 	       }
+	       
+	       
+	       try(BufferedWriter writer = new BufferedWriter(new FileWriter("X:\\workspace\\workspace0707\\choreharmony\\ChoreHarmony\\userdata.txt",true))){
+	       	writer.write(householdname+" ");
+	       	writer.write(name+" ");
+	       	writer.write(email+" ");
+	       	writer.write(password+" ");
+	       	writer.write(confirmPassword+System.lineSeparator());
+	       	
+	       	writer.close();
+	       	Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	       	alert.setTitle("Success");
+	       	alert.setContentText("Save Successed");
+	       	alert.showAndWait();
+
+	       	
+	       } catch (IOException e1) {
+	   		// TODO Auto-generated catch block
+	   		e1.printStackTrace();
+	   	}
+	       
 	   });
 	  
 	  redirectSystemOut();

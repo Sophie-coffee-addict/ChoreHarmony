@@ -56,24 +56,9 @@ public class Chore implements Serializable {
 	public void setTeamTask(boolean teamTask) {
 		this.teamTask = teamTask;
 	}
-	public int getEffortOfChore() {
-		return EffortOfChore;
-	}
-	public void setEffortOfChore(int effortOfChore) {
-		EffortOfChore = effortOfChore;
-	}
-	public int getSelfSatisfactionOfTask() {
-		return selfSatisfactionOfTask;
-	}
-	public void setSelfSatisfactionOfTask(int selfSatisfactionOfTask) {
-		this.selfSatisfactionOfTask = selfSatisfactionOfTask;
-	}
 
-	@Override
-	public String toString() {
-		return "Chore [name=" + name + ", frequency=" + frequency + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", teamTask=" + teamTask + "]";
-	}
+
+
 	
 	
 
