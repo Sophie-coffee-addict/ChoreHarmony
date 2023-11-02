@@ -1,8 +1,9 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chore {
+public class Chore implements Serializable {
 
 	private String name;
 	private int frequency;

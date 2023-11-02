@@ -1,6 +1,8 @@
 package application;
 
-public class Household {
+import java.io.Serializable;
+
+public class Household implements Serializable {
 
 	private int id;
 	private String name;
