@@ -9,14 +9,27 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private ArrayList<Chore> choreList;
-	private String awayMode;
 	private Boolean isCreator;
 
-	public User(String name, String email, String password) {
+	public User(String name, String email, String password, boolean isCreator) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.isCreator = isCreator;
+	}
+
+	// add a chore to this user
+	public void addChore(Chore chore) {
+		choreList.add(chore);
+	}
+
+	public Boolean getIsCreator() {
+		return isCreator;
+	}
+
+	public void setIsCreator(Boolean isCreator) {
+		this.isCreator = isCreator;
 	}
 
 	public String getName() {
@@ -43,30 +56,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-//	public ArrayList<Chore> getChoreList() {
-//		return choreList;
-//	}
-//
-//	public void setChoreList(ArrayList<Chore> choreList) {
-//		this.choreList = choreList;
-//	}
-//
-//	public String getAwayMode() {
-//		return awayMode;
-//	}
-//
-//	public void setAwayMode(String awayMode) {
-//		this.awayMode = awayMode;
-//	}
-
-	public void addChore(Chore chore) {
-		choreList.add(chore);
+	public ArrayList<Chore> getChoreList() {
+		return choreList;
 	}
 
-	public void deleteChore(String Name) {
-		for (Chore item : choreList)
-			if (item.getName().equalsIgnoreCase(Name))
-				choreList.remove(choreList.indexOf(item));
+	public void setChoreList(ArrayList<Chore> choreList) {
+		this.choreList = choreList;
 	}
 
 }

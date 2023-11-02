@@ -8,16 +8,8 @@ public class Chore implements Serializable {
 	private String name;
 	private int frequency;
 	private int startTime;
-	private int endTime;
 	private boolean teamTask;
 	private ArrayList<User> teamMemberList;
-	private int EffortOfChore;
-	private int selfSatisfactionOfTask;
-
-	public Chore(String name) {
-		super();
-		this.name = name;
-	}
 
 	public Chore(String name, int frequency, int startTime, boolean teamTask) {
 		super();
@@ -25,6 +17,11 @@ public class Chore implements Serializable {
 		this.frequency = frequency;
 		this.startTime = startTime;
 		this.teamTask = teamTask;
+	}
+
+	// add team member to this chore
+	public void addTeamMember(User teamMember) {
+		teamMemberList.add(teamMember);
 	}
 
 	public String getName() {
@@ -51,14 +48,6 @@ public class Chore implements Serializable {
 		this.startTime = startTime;
 	}
 
-//	public int getEndTime() {
-//		return endTime;
-//	}
-//
-//	public void setEndTime(int endTime) {
-//		this.endTime = endTime;
-//	}
-//
 	public boolean isTeamTask() {
 		return teamTask;
 	}
@@ -66,29 +55,13 @@ public class Chore implements Serializable {
 	public void setTeamTask(boolean teamTask) {
 		this.teamTask = teamTask;
 	}
-//
-//	public int getEffortOfChore() {
-//		return EffortOfChore;
-//	}
-//
-//	public void setEffortOfChore(int effortOfChore) {
-//		EffortOfChore = effortOfChore;
-//	}
-//
-//	public int getSelfSatisfactionOfTask() {
-//		return selfSatisfactionOfTask;
-//	}
-//
-//	public void setSelfSatisfactionOfTask(int selfSatisfactionOfTask) {
-//		this.selfSatisfactionOfTask = selfSatisfactionOfTask;
-//	}
 
-	public void addTeamMember(User teamMember) {
-		teamMemberList.add(teamMember);
+	public ArrayList<User> getTeamMemberList() {
+		return teamMemberList;
 	}
 
-	public void deleteTeamMember(User teamMember) {
-		teamMemberList.remove(teamMemberList.indexOf(teamMember));
+	public void setTeamMemberList(ArrayList<User> teamMemberList) {
+		this.teamMemberList = teamMemberList;
 	}
 
 }

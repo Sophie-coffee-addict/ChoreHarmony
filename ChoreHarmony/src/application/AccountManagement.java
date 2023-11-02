@@ -1,141 +1,60 @@
 package application;
 
 public class AccountManagement {
-	private Database db;
+	private Database database;
 
 	public AccountManagement() {
-		this.db = Database.getInstance();
+		this.database = Database.getInstance();
 	}
 
-	// create household account
-	public void createHouseholdAccount(String name, Household household) {
-		household = new Household(name);
-		db.addHousehold(household);
+	// create household account and add it into households arrayList
+	public void createHouseholdAccount(String householdName, String creatorName, String email, String password) {
+		Household household = new Household(householdName);
+		database.addHousehold(household);
+
+		User creator = new User(creatorName, email, password, true);
+		household.addUser(creator);
 	}
 
 	// login
-	public boolean login(String email, String password) {
+	public boolean userExist(String householdName, String email, String password) {
 		boolean exist = false;
-		for (User item : db.getUsers()) {
-			if (item.getEmail().equalsIgnoreCase(email) && item.getPassword().equalsIgnoreCase(password)) {
+		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
+			if (teamMember.getEmail().equalsIgnoreCase(email) && teamMember.getPassword().equalsIgnoreCase(password)) {
 				exist = true;
 				break;
 			}
 		}
-		if (!exist) {
+		if (exist) {
 			return true;
 		} else {
-			return false;
+			return false;// email or password is wrong or email does not exist
 		}
 	}
 
-	// Choose/create a chore
-//	public Chore chooseChore(String email, String ChoreName, int frequency, int startTime, boolean teamTask) {
-//		Chore chore = new Chore(ChoreName, frequency, startTime, false);
-//		for (User item : db.getUsers()) {
-//			if (item.getEmail().equalsIgnoreCase(email)) {
-//				item.addChore(chore);
-////				chore.addTeamMember(item);
-//			}
-//		}
-//		return chore;
-//	}
-
-	public Chore choosedChose(String email, String ChoreName, int frequency, int startTime, boolean teamTask,
-			User teamMember) {
-		Chore chore = new Chore(ChoreName, frequency, startTime, false);
-		return chore;
+	// Choose a chore for a team member
+	public Chore selectedChore(String householdName, String email, String ChoreName, int frequency, int startTime,
+			boolean teamTask) {
+		Chore chore = new Chore(ChoreName, frequency, startTime, teamTask);
+		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
+			if (teamMember.getEmail().equalsIgnoreCase(email)) {
+				teamMember.addChore(chore); // add this chore into the chore list of this user
+				chore.addTeamMember(teamMember); // add this user into the team member list of this chore
+				getCurrentHousehold(householdName).addChore(chore);// add this chore into chores list of this household
+				return chore;
+			}
+		}
+		return null;
 	}
 
-//	// creator deletes account
-//	public void deleteAccount(int id) {
-//		for (Household item : db.getHouseholds()) {
-//			if (item.getId() == id) {
-//				db.getHouseholds().remove(db.getHouseholds().indexOf(item));
-//			}
-//		}
-//	}
-//
-//	// creator creates team member
-//	public void createMember(String name, String email, String password, String awayMode, Boolean isCreator,
-//			ArrayList<Chore> choreList, User teamMember) {
-//		for (User item : db.getUsers()) {
-//			if (!item.getEmail().equalsIgnoreCase(email)) {
-//				teamMember = new User(name, email, password, awayMode, isCreator, choreList);
-//				db.addUser(teamMember);
-//			}
-//		}
-//	}
-//
-//	// creator deletes team member
-//	public void deleteTeamMember(String email) {
-//		for (User item : db.getUsers()) {
-//			if (item.getEmail().equalsIgnoreCase(email)) {
-//				db.getUsers().remove(db.getUsers().indexOf(item));
-//			}
-//		}
-//	}
-//
-//	// creator creates chore
-//	public void createChore(String name, int frequency, int startTime, boolean teamTask, ArrayList<User> teamMemberList,
-//			Chore chore) {
-//		for (Chore item : db.getChores()) {
-//			if (!item.getName().equalsIgnoreCase(name)) {
-//				chore = new Chore(name, frequency, startTime, teamTask, teamMemberList);
-//				db.addChore(chore);
-//			}
-////			else {"This chore already exists!"}
-////		}
-//		}
-//	}
-//
-//	// creator deletes chore
-//	public void deleteChore(String name) {
-//		for (Chore item : db.getChores()) {
-//			if (item.getName().equalsIgnoreCase(name)) {
-//				db.getChores().remove(db.getChores().indexOf(item));
-//			}
-//		}
-//	}
-//
-//	// teamMember adds chore for themselves
-//	public void addChore(String choreName, User teamMember) {
-//		for (Chore item : db.getChores()) {
-//			if (item.getName().equalsIgnoreCase(choreName)) {
-//				teamMember.addChore(item);
-//				item.addTeamMember(teamMember);
-//			}
-//		}
-//	}
-//
-//	// teamMember removes chore for themselves
-//	public void removeChore(String choreName, User teamMember) {
-//		for (Chore item : db.getChores()) {
-//			if (item.getName().equalsIgnoreCase(choreName)) {
-//				teamMember.deleteChore(choreName);
-//				item.deleteTeamMember(teamMember.getEmail());
-//			}
-//		}
-//	}
-//
-//	// teamMember register themselves as a team member
-//	public void registerAsTeamMember(String name, String email, String password, String awayMode, Boolean isCreator,
-//			ArrayList<Chore> choreList, User teamMember) {
-//		boolean exist = false;
-//		for (User item : db.getUsers()) {
-//			if (item.getEmail().equalsIgnoreCase(email)) {
-//				exist = true;
-//				break;
-//			}
-//		}
-//		if (!exist) {
-//			teamMember = new User(name, email, password, awayMode, isCreator, choreList);
-//			db.addUser(teamMember);
-//		}
-////		else {
-////			""
-////		}
-//
-//	}
+	// get current household
+	public Household getCurrentHousehold(String householdName) {
+		for (Household household : database.getHouseholds()) {
+			if (household.getName().equalsIgnoreCase(householdName)) {
+				return household;
+			}
+		}
+		return null;
+	}
 
 }
