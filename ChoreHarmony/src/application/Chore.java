@@ -1,8 +1,9 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chore {
+public class Chore implements Serializable {
 	
 	
 	private String name;
@@ -64,6 +65,12 @@ public class Chore {
 	}
 	public void setSelfSatisfactionOfTask(int selfSatisfactionOfTask) {
 		this.selfSatisfactionOfTask = selfSatisfactionOfTask;
+	}
+
+	@Override
+	public String toString() {
+		return "Chore [name=" + name + ", frequency=" + frequency + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", teamTask=" + teamTask + "]";
 	}
 	
 	

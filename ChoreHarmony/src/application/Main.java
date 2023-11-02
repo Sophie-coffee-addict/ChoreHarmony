@@ -22,9 +22,17 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		launch(args);
-		// by me
+		//launch(args);
+		Database db = Database.getInstance();
+		db.getChores().stream().forEach((Chore ch) -> {
+			System.out.println(ch);
+		});
+//		db.addChore(new Chore("Sample 2", 100, 1100, true));
+//		try {
+//			db.saveData();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
 	}
-
-	// Emma
 }
