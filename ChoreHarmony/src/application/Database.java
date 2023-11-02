@@ -9,12 +9,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Database implements Serializable{
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	private static Database single_instance = null; 
 
 	private ArrayList<Chore> chores = new ArrayList<>();
 	private ArrayList<User> users = new ArrayList<>();
+	private ArrayList<Household> households = new ArrayList<>();
 
 	public Database(ArrayList<Chore> chores, ArrayList<User> users) {
 		super();
@@ -43,7 +46,20 @@ public class Database implements Serializable{
 		
 	}
 	
-	 public static synchronized Database getInstance() 
+	
+	 public ArrayList<Household> getHouseholds() {
+		return households;
+	}
+
+	public void setHouseholds(ArrayList<Household> households) {
+		this.households = households;
+	}
+	
+	public void addHousehold(Household household) {
+		households.add(household);
+	}
+
+	public static synchronized Database getInstance() 
 	    { 
 	        if (single_instance == null) 
 	            single_instance =  loadData();  // load your database eg: loadDb(String)
@@ -60,8 +76,9 @@ public class Database implements Serializable{
 	 }
 	 
 	 public void saveData() throws IOException {
+//		 file = new File("householdDataBase");
 		 FileOutputStream fileOutputStream
-	      = new FileOutputStream("yourfile.db");
+	      = new FileOutputStream("householdDataBase.db");
 	    ObjectOutputStream objectOutputStream 
 	      = new ObjectOutputStream(fileOutputStream);
 	    objectOutputStream.writeObject(this);
@@ -72,17 +89,18 @@ public class Database implements Serializable{
 	 public static Database loadData() {
 		 FileInputStream fileInputStream;
 		try {
-			fileInputStream = new FileInputStream("yourfile.db");
+			fileInputStream = new FileInputStream("householdDataBase.db");
 	    ObjectInputStream objectInputStream;
 
 			objectInputStream = new ObjectInputStream(fileInputStream);
 		    Database db = (Database) objectInputStream.readObject();
+			
 		    objectInputStream.close();
 		    return db;
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
+			return new Database();
 		}
-		return null;
 
 	 }
 }

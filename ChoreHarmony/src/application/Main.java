@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 /**
- * This is the main UI class.¡£
+ * This is the main UI class.ï¿½ï¿½
  */
 public class Main extends Application {
 	 private Label titleLabel;
@@ -66,7 +66,7 @@ public class Main extends Application {
 	        emailField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
 	        passwordField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
 	        confirmPasswordField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
-	        // ´´½¨Êä³öÎÄ±¾ÇøÓò
+	        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
 	        outputLabel = new Label("");
 	        outputLabel.setWrapText(true);
 	        
