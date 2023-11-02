@@ -1,65 +1,67 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
-	
+public class User implements Serializable {
+
 	private String name;
-	private String emailAddress;
+	private String email;
 	private String password;
-	private ArrayList<String> choreList;
-	private String awayMode;
-	
+	private ArrayList<Chore> choreList;
+	private Boolean isCreator;
+
+	public User(String name, String email, String password, boolean isCreator) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.isCreator = isCreator;
+	}
+
+	// add a chore to this user
+	public void addChore(Chore chore) {
+		choreList.add(chore);
+	}
+
+	public Boolean getIsCreator() {
+		return isCreator;
+	}
+
+	public void setIsCreator(Boolean isCreator) {
+		this.isCreator = isCreator;
+	}
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getEmailAddress() {
-		return emailAddress;
+
+	public String getEmail() {
+		return email;
 	}
-	
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public ArrayList<String> getChoreList() {
+
+	public ArrayList<Chore> getChoreList() {
 		return choreList;
 	}
-	
-	public void setChoreList(ArrayList<String> choreList) {
+
+	public void setChoreList(ArrayList<Chore> choreList) {
 		this.choreList = choreList;
 	}
-	
-	public String getAwayMode() {
-		return awayMode;
-	}
-	
-	public void setAwayMode(String awayMode) {
-		this.awayMode = awayMode;
-	}
-	
-	public User(String name, String emailAddress, String password) {
-		super();
-		this.name = name;
-		this.emailAddress = emailAddress;
-		this.password = password;
-	}
-	
-	
-	
-	
-	
 
 }

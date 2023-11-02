@@ -13,21 +13,43 @@ public class Database implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	private static Database single_instance = null; 
+	private static Database single_instance = null;
 
-	private ArrayList<Chore> chores = new ArrayList<>();
-	private ArrayList<User> users = new ArrayList<>();
+//	private ArrayList<Chore> chores = new ArrayList<>();
+//	private ArrayList<User> users = new ArrayList<>();
 	private ArrayList<Household> households = new ArrayList<>();
 
-	public Database(ArrayList<Chore> chores, ArrayList<User> users) {
+//	public Database(ArrayList<Chore> chores, ArrayList<User> users) {
+//		super();
+//		this.chores = chores;
+//		this.users = users;
+//	}
+
+	public Database(ArrayList<Household> households) {
 		super();
-		this.chores = chores;
-		this.users = users;
+		this.households = households;
 	}
 
 	public Database() {
 		super();
 	}
+//
+//	public ArrayList<Chore> getChores() {
+//		return chores;
+//	}
+//
+//	public void setChores(ArrayList<Chore> chores) {
+//		this.chores = chores;
+//	}
+//
+//	public ArrayList<User> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(ArrayList<User> users) {
+//		this.users = users;
+//		
+//	}	
 
 	public ArrayList<Chore> getChores() {
 		return chores;
@@ -54,7 +76,7 @@ public class Database implements Serializable{
 	public void setHouseholds(ArrayList<Household> households) {
 		this.households = households;
 	}
-	
+
 	public void addHousehold(Household household) {
 		households.add(household);
 	}
@@ -102,5 +124,5 @@ public class Database implements Serializable{
 			return new Database();
 		}
 
-	 }
+	}
 }
