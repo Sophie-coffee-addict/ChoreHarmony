@@ -16,6 +16,6 @@
     -fx-background-color: #7749F8;
 }
 
-.button:selected {
-    -fx-background-color: yellow;
+.button:hover {
+    -fx-background-color: #AA8CFF;
 }
