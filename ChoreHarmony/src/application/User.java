@@ -5,21 +5,17 @@ import java.util.ArrayList;
 public class User {
 
 	private String name;
-	private String emailAddress;
+	private String email;
 	private String password;
 	private ArrayList<Chore> choreList;
 	private String awayMode;
 	private Boolean isCreator;
 
-	public User(String name, String emailAddress, String password, String awayMode, Boolean isCreator,
-			ArrayList<Chore> choreList) {
+	public User(String name, String email, String password) {
 		super();
 		this.name = name;
-		this.emailAddress = emailAddress;
+		this.email = email;
 		this.password = password;
-		this.choreList = new ArrayList<>();
-		this.awayMode = awayMode;
-		this.isCreator = isCreator;
 	}
 
 	public String getName() {
@@ -30,12 +26,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -46,31 +42,30 @@ public class User {
 		this.password = password;
 	}
 
-	public ArrayList<Chore> getChoreList() {
-		return choreList;
-	}
-
-	public void setChoreList(ArrayList<Chore> choreList) {
-		this.choreList = choreList;
-	}
-
-	public String getAwayMode() {
-		return awayMode;
-	}
-
-	public void setAwayMode(String awayMode) {
-		this.awayMode = awayMode;
-	}
-
-	public User(String name, String emailAddress, String password) {
-		super();
-		this.name = name;
-		this.emailAddress = emailAddress;
-		this.password = password;
-	}
+//	public ArrayList<Chore> getChoreList() {
+//		return choreList;
+//	}
+//
+//	public void setChoreList(ArrayList<Chore> choreList) {
+//		this.choreList = choreList;
+//	}
+//
+//	public String getAwayMode() {
+//		return awayMode;
+//	}
+//
+//	public void setAwayMode(String awayMode) {
+//		this.awayMode = awayMode;
+//	}
 
 	public void addChore(Chore chore) {
 		choreList.add(chore);
+	}
+
+	public void deleteChore(String Name) {
+		for (Chore item : choreList)
+			if (item.getName().equalsIgnoreCase(Name))
+				choreList.remove(choreList.indexOf(item));
 	}
 
 }

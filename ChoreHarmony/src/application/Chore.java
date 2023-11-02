@@ -13,13 +13,17 @@ public class Chore {
 	private int EffortOfChore;
 	private int selfSatisfactionOfTask;
 
-	public Chore(String name, int frequency, int startTime, boolean teamTask, ArrayList<User> teamMemberList) {
+	public Chore(String name) {
+		super();
+		this.name = name;
+	}
+
+	public Chore(String name, int frequency, int startTime, boolean teamTask) {
 		super();
 		this.name = name;
 		this.frequency = frequency;
 		this.startTime = startTime;
 		this.teamTask = teamTask;
-		this.teamMemberList = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -46,14 +50,14 @@ public class Chore {
 		this.startTime = startTime;
 	}
 
-	public int getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
-	}
-
+//	public int getEndTime() {
+//		return endTime;
+//	}
+//
+//	public void setEndTime(int endTime) {
+//		this.endTime = endTime;
+//	}
+//
 	public boolean isTeamTask() {
 		return teamTask;
 	}
@@ -61,25 +65,29 @@ public class Chore {
 	public void setTeamTask(boolean teamTask) {
 		this.teamTask = teamTask;
 	}
-
-	public int getEffortOfChore() {
-		return EffortOfChore;
-	}
-
-	public void setEffortOfChore(int effortOfChore) {
-		EffortOfChore = effortOfChore;
-	}
-
-	public int getSelfSatisfactionOfTask() {
-		return selfSatisfactionOfTask;
-	}
-
-	public void setSelfSatisfactionOfTask(int selfSatisfactionOfTask) {
-		this.selfSatisfactionOfTask = selfSatisfactionOfTask;
-	}
+//
+//	public int getEffortOfChore() {
+//		return EffortOfChore;
+//	}
+//
+//	public void setEffortOfChore(int effortOfChore) {
+//		EffortOfChore = effortOfChore;
+//	}
+//
+//	public int getSelfSatisfactionOfTask() {
+//		return selfSatisfactionOfTask;
+//	}
+//
+//	public void setSelfSatisfactionOfTask(int selfSatisfactionOfTask) {
+//		this.selfSatisfactionOfTask = selfSatisfactionOfTask;
+//	}
 
 	public void addTeamMember(User teamMember) {
 		teamMemberList.add(teamMember);
+	}
+
+	public void deleteTeamMember(User teamMember) {
+		teamMemberList.remove(teamMemberList.indexOf(teamMember));
 	}
 
 }
