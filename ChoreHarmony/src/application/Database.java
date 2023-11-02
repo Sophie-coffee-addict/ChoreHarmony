@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Database implements Serializable{
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	private static Database single_instance = null; 
@@ -45,7 +47,6 @@ public class Database implements Serializable{
 	}
 	
 	
-	
 	 public ArrayList<Household> getHouseholds() {
 		return households;
 	}
@@ -75,8 +76,9 @@ public class Database implements Serializable{
 	 }
 	 
 	 public void saveData() throws IOException {
+//		 file = new File("householdDataBase");
 		 FileOutputStream fileOutputStream
-	      = new FileOutputStream("yourfile.db");
+	      = new FileOutputStream("householdDataBase.db");
 	    ObjectOutputStream objectOutputStream 
 	      = new ObjectOutputStream(fileOutputStream);
 	    objectOutputStream.writeObject(this);
@@ -87,17 +89,18 @@ public class Database implements Serializable{
 	 public static Database loadData() {
 		 FileInputStream fileInputStream;
 		try {
-			fileInputStream = new FileInputStream("yourfile.db");
+			fileInputStream = new FileInputStream("householdDataBase.db");
 	    ObjectInputStream objectInputStream;
 
 			objectInputStream = new ObjectInputStream(fileInputStream);
 		    Database db = (Database) objectInputStream.readObject();
+			
 		    objectInputStream.close();
 		    return db;
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
+			return new Database();
 		}
-		return null;
 
 	 }
 }
