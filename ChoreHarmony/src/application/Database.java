@@ -98,6 +98,7 @@ public class Database implements Serializable{
 //	 }
 	 
 	 public void saveData() throws IOException {
+		 
 //		 file = new File("householdDataBase");
 		 FileOutputStream fileOutputStream
 	      = new FileOutputStream("householdDataBase.db");

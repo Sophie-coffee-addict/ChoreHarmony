@@ -33,7 +33,7 @@ public class AccountManagement {
 	}
 
 	// Choose a chore for a team member
-	public Chore selectedChore(String householdName, String email, String ChoreName, int frequency, int startTime,
+	public Chore selectedChore(String householdName, String email, String ChoreName, String frequency, String startTime,
 			boolean teamTask) {
 		Chore chore = new Chore(ChoreName, frequency, startTime, teamTask);
 		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
