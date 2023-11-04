@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -24,7 +25,7 @@ public class LoginPage extends Pane {
 	
 	TextField householdEntry = new TextField();
 	TextField emailEntry = new TextField();
-	TextField passwordEntry = new TextField();
+	PasswordField passwordEntry = new PasswordField();
 	
 	Button loginButton = new Button("Login");
 	
@@ -54,11 +55,9 @@ public class LoginPage extends Pane {
 
 		       if (!email.isEmpty() && !password.isEmpty() 
 		    		   &&accountManagement.userExist(householdName,email, password)) {
-		                // 登录成功，跳转到 AddAChorePage 页面
-		    	   
+		                // success,jump into AddAChorePage 
 		                openAddAChorePage();
 		            } else {
-		                // 登录失败，显示错误消息
 		                showError("Login failed, please check your email and password.");
 		            }
 

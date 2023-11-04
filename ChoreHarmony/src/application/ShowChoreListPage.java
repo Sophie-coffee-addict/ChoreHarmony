@@ -20,7 +20,8 @@ public class ShowChoreListPage extends Application {
 
 	 
 	public void start(Stage primaryStage) {
-		//AccountManagement accountManagement = new  AccountManagement();
+		AccountManagement accountManagement = new  AccountManagement();
+		
 		primaryStage.setTitle("Register");
 		 VBox vbox = new  VBox();
 		 vbox.setAlignment(javafx.geometry.Pos.CENTER); 
@@ -31,12 +32,13 @@ public class ShowChoreListPage extends Application {
 	  //creat a ListView
 	        ListView<String> listView = new ListView<>();
 	        listView.setPrefWidth(300);//宽度设置不起作用
-	       /* 加载数据不成功
-	        Household household = accountManagement.getCurrentHousehold("123");
+	    
+	       String householdname =accountManagement.getHouseholdName();
+	        Household household = accountManagement.getCurrentHousehold(householdname);
 	        String chore = household.getChores().get(0).toString();
 	      
-	       */ 
-	          listView.getItems().addAll("Do dishs  Weekly  8:00  Individual", "chorename2", "chorename3","chorename4");
+	   
+	          listView.getItems().addAll(chore, "chore2", "chore3","chore4");
 	     Button button = new Button("Add a chore");
 	     button.setPrefSize(150, 50);
 	     button.setFont(new Font(20));

@@ -1,4 +1,6 @@
 package application;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,8 +105,9 @@ public class AddAChorePage extends Pane{
 			String ChoreName= (String) choreBox.getValue();
 			String Frequency = (String) frequencyBox.getValue();
 			String startTime = (String) timeBox.getValue();
-			
-			//accountManagement.selectedChore("123", "123@sina.com",ChoreName,Frequency,startTime,true);
+			String  householdname = accountManagement.getHouseholdName();
+			System.out.println(householdname);
+	      accountManagement.selectedChore(householdname, ChoreName,Frequency,startTime,true);
 			ShowChoreListPage();
 	    });
 		

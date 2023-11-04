@@ -10,7 +10,7 @@ public class Chore implements Serializable {
 	private String frequency;
 	private String startTime;
 	private boolean teamTask;
-	private ArrayList<User> teamMemberList;
+	private ArrayList<User> teamMemberList=new ArrayList<User>();
 
 	public Chore(String name,String frequency,String startTime, boolean teamTask) {
 		super();
@@ -22,8 +22,8 @@ public class Chore implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Chore [name=" + name + ", frequency=" + frequency + ", startTime=" + startTime + ", teamTask="
-				+ teamTask + "]";
+		return "name: " + name + "   frequency:" + frequency + "  startTime:" + startTime + "  teamTask:"
+				+ teamTask;
 	}
 
 	// add team member to this chore
