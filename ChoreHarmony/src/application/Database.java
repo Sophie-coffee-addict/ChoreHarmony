@@ -30,7 +30,14 @@ public class Database implements Serializable {
      * A unique identifier for the class, used during object serialization to ensure compatibility.
      */
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * The constant file name for the database file.
+     * This value can be modified to change the name of the database file.
+     */
 
+    private static final String FILENAME = "householdDataBase.db";
+    
     /**
      * A static variable that holds the single instance of the `Database` class.
      * This follows the Singleton pattern, ensuring that only one instance of the database exists.
@@ -132,7 +139,7 @@ public class Database implements Serializable {
 	 */
 	public void saveData() throws IOException {
 		// Create a file output stream to write data to a file.
-		FileOutputStream fileOutputStream = new FileOutputStream("householdDataBase.db");
+		FileOutputStream fileOutputStream = new FileOutputStream(FILENAME);
 
 		// Create an object output stream to serialize and write objects to the file.
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -159,7 +166,7 @@ public class Database implements Serializable {
 
 	    try {
 	        // Create a FileInputStream to read from the "householdDataBase.db" file.
-	        fileInputStream = new FileInputStream("householdDataBase.db");
+	        fileInputStream = new FileInputStream(FILENAME);
 	        
 	        // Create an ObjectInputStream to deserialize objects from the file.
 	        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
