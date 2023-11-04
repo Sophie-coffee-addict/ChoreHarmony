@@ -7,17 +7,23 @@ public class Chore implements Serializable {
 	
 	
 	private String name;
-	private int frequency;
-	private int startTime;
+	private String frequency;
+	private String startTime;
 	private boolean teamTask;
-	private ArrayList<User> teamMemberList;
+	private ArrayList<User> teamMemberList=new ArrayList<User>();
 
-	public Chore(String name, int frequency, int startTime, boolean teamTask) {
+	public Chore(String name,String frequency,String startTime, boolean teamTask) {
 		super();
 		this.name = name;
 		this.frequency = frequency;
 		this.startTime = startTime;
 		this.teamTask = teamTask;
+	}
+
+	@Override
+	public String toString() {
+		return "name: " + name + "   frequency:" + frequency + "  startTime:" + startTime + "  teamTask:"
+				+ teamTask;
 	}
 
 	// add team member to this chore
@@ -33,19 +39,19 @@ public class Chore implements Serializable {
 		this.name = name;
 	}
 
-	public int getFrequency() {
+	public String getFrequency() {
 		return frequency;
 	}
 
-	public void setFrequency(int frequency) {
+	public void setFrequency(String frequency) {
 		this.frequency = frequency;
 	}
 
-	public int getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(int startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
