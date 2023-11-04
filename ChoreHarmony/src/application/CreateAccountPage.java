@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class CreateAccountPage extends BorderPane {
-	
+	 AccountManagement accountManagement = new  AccountManagement();
+	 
 	Label outputLabel = new Label("");
 	Label titleLabel = new Label("Create Account");
 	GridPane grid = new GridPane();
@@ -50,17 +53,6 @@ public class CreateAccountPage extends BorderPane {
 	}
 	
 	
-	
-	
-	
-
-   
-   
-   
-  
-   
-   
-
    
    public CreateAccountPage() {
 	   this.setStyle("-fx-background-color: #FAC8CD");
@@ -90,9 +82,26 @@ public class CreateAccountPage extends BorderPane {
 	   this.registerButton.setTextFill(Color.web("#ffffff"));
 	   
 	   this.nameField1.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
+	   
 	   this.nameField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
+	   nameField.setPromptText("Maximum 10 characters");
+
+       nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+           if (newValue.length() > 10) {
+               nameField.setText(oldValue);
+           }
+       });
 	   this.emailField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
+	   emailField.setPromptText("example@example.com");
+	   emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+           if (!isValidEmailFormat(newValue)) {
+               emailField.setStyle("-fx-text-box-border: red ; -fx-focus-color: red ;");
+           } else {
+               emailField.setStyle(""); //Restore default style
+           }
+       });
 	   this.passwordField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
+	   
 	   this.confirmPasswordField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
 	   
 	   this.outputLabel.setWrapText(true);
@@ -119,16 +128,23 @@ public class CreateAccountPage extends BorderPane {
 	       String password = passwordField.getText();
 	       String confirmPassword = confirmPasswordField.getText();
 
-	       if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+	       if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()||householdname.isEmpty()) {
 	           updateOutputLabel("Please fill in all the fields.");
 	       } else if (!password.equals(confirmPassword)) {
 	           updateOutputLabel("Password does not match. Please try again.");
 	       } else {
 	           updateOutputLabel("Create successful!");
+	           openLoginPage();
+	          //´¢´æcreateÊý¾Ý
+	            accountManagement.createHouseholdAccount(householdname, name, email, confirmPassword);
+	           
 	       }
 	       
+	     
+	     
 	       
-	       try(BufferedWriter writer = new BufferedWriter(new FileWriter("X:\\workspace\\workspace0707\\choreharmony\\ChoreHarmony\\userdata.txt",true))){
+	       /*
+	       try(BufferedWriter writer = new BufferedWriter(new FileWriter("ChoreHarmony\\userdata.txt",true))){
 	       	writer.write(householdname+" ");
 	       	writer.write(name+" ");
 	       	writer.write(email+" ");
@@ -146,11 +162,27 @@ public class CreateAccountPage extends BorderPane {
 	   		// TODO Auto-generated catch block
 	   		e1.printStackTrace();
 	   	}
-	       
+	       */
+	    
 	   });
 	  
 	  redirectSystemOut();
 	   
    }
 
+  // Use regular expressions to verify Email format
+   private boolean isValidEmailFormat(String email) {
+       String emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$";
+       return email.matches(emailPattern);
+   }
+   
+   private void openLoginPage() {
+	   Stage newstage = new Stage();
+	   newstage.setTitle("Login page");
+	   LoginPage lgoinPage = new LoginPage();
+	   
+	   Scene scene = new Scene(lgoinPage,400,800);
+	   newstage.setScene(scene);
+	   newstage.show();
+   }
 }

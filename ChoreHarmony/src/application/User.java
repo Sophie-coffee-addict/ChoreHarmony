@@ -8,7 +8,7 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String password;
-	private ArrayList<Chore> choreList;
+	private ArrayList<Chore> choreList = new ArrayList<Chore>();
 	private Boolean isCreator;
 
 	public User(String name, String email, String password, boolean isCreator) {
@@ -21,6 +21,7 @@ public class User implements Serializable {
 
 	// add a chore to this user
 	public void addChore(Chore chore) {
+		System.out.println("test1");
 		choreList.add(chore);
 	}
 
