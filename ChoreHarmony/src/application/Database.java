@@ -62,7 +62,7 @@ public class Database implements Serializable {
 	}
 
 	/**
-	 * Constructs an empty `Database` object.
+	 * Constructs an empty Database object.
 	 */
 
 	public Database() {
@@ -98,6 +98,7 @@ public class Database implements Serializable {
 
 	public void addHousehold(Household household) {
 		households.add(household);
+		saveData();
 	}
 
 	/**
@@ -137,21 +138,31 @@ public class Database implements Serializable {
 	 * @throws IOException if there is a file input/output error during the save
 	 *                     operation.
 	 */
-	public void saveData() throws IOException {
+	public void saveData() {
 		// Create a file output stream to write data to a file.
-		FileOutputStream fileOutputStream = new FileOutputStream(FILENAME);
+		FileOutputStream fileOutputStream;
+		ObjectOutputStream objectOutputStream;
+		try {
+			fileOutputStream = new FileOutputStream(FILENAME);
+		
 
 		// Create an object output stream to serialize and write objects to the file.
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+		objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
 		// Use the object output stream to write the current database object (i.e.,
 		// this) to the file.
 		objectOutputStream.writeObject(this);
+		objectOutputStream.flush();
+		objectOutputStream.close();
+
 
 		// Flush and close the object output stream to ensure the data is written to the
 		// file.
-		objectOutputStream.flush();
-		objectOutputStream.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -189,5 +200,6 @@ public class Database implements Serializable {
 	        return new Database();
 	    }
 	}
+	
 
 }
