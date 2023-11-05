@@ -1,63 +1,100 @@
 package application;
 
-import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ShowChoreListPage extends Application {
-	 private Label titleLabel;
+public class ShowChoreListPage extends BorderPane {
+	String email;
+	String householdName;
+	AccountManagement accountManagement = new AccountManagement();
 
-	 
-	public void start(Stage primaryStage) {
-		AccountManagement accountManagement = new  AccountManagement();
-		
-		primaryStage.setTitle("Register");
-		 VBox vbox = new  VBox();
-		 vbox.setAlignment(javafx.geometry.Pos.CENTER); 
-		 titleLabel = new Label("Chore List");
-	     titleLabel.setStyle("-fx-font-size: 40px; -fx-font-weight: bold;");
-	     titleLabel.setAlignment(Pos.CENTER);
+	BorderPane root = new BorderPane();
+	Label titleLabel = new Label("Chore List");
+	TableView<Chore> tableView = new TableView<>();
+	Button addChoreButton = new Button("Add a chore");
 
-	  //creat a ListView
-	        ListView<String> listView = new ListView<>();
-	        listView.setPrefWidth(300);//宽度设置不起作用
-	    
-	       String householdname =accountManagement.getHouseholdName();
-	        Household household = accountManagement.getCurrentHousehold(householdname);
-	        String chore = household.getChores().get(0).toString();
-	      
-	   
-	          listView.getItems().addAll(chore, "chore2", "chore3","chore4");
-	     Button button = new Button("Add a chore");
-	     button.setPrefSize(150, 50);
-	     button.setFont(new Font(20));
+	public ShowChoreListPage(String householdName, String email) {
+		this.householdName = householdName;
+		this.email = email;
 
-	     vbox.getChildren().addAll(titleLabel,listView, button);
-	     Scene scene = new Scene(vbox, 400, 800);
-	        Image backgroundImage = new Image("https://img.ixintu.com/download/jpg/201911/7fd3f0716dc87769a3914c760681f158.jpg!con0");
-	        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-	        BackgroundImage backgroundImageObj = new BackgroundImage(backgroundImage, null, null, null, backgroundSize);
-	        Background background = new Background(backgroundImageObj);
+		// set background color
+		this.setStyle("-fx-background-color: #FAC8CD");
 
-	        vbox.setBackground(background);
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
-	 
+		// set heading
+		this.titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+		this.titleLabel.setMaxWidth(400);
+		this.titleLabel.setAlignment(Pos.CENTER);
+		BorderPane.setMargin(titleLabel, new javafx.geometry.Insets(40, 0, 0, 0));
+		this.setTop(titleLabel);
+
+		// set add a chore button
+		this.addChoreButton.setPrefSize(120, 35);
+		this.addChoreButton.setStyle("-fx-font-weight: bold;-fx-text-fill: #ffffff; -fx-background-color: #6E51E4;");
+		this.addChoreButton.setFont(new Font(15));
+		BorderPane.setMargin(addChoreButton, new javafx.geometry.Insets(0, 0, 50, 265));
+		this.setBottom(addChoreButton);
+
+		// set tableView
+		TableColumn<Chore, String> choreNameCol = new TableColumn<>("Chore");
+		choreNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+		TableColumn<Chore, String> frequencyCol = new TableColumn<>("Frequency");
+		frequencyCol.setCellValueFactory(new PropertyValueFactory<>("frequency"));
+
+		TableColumn<Chore, Integer> startTimeCol = new TableColumn<>("Start time");
+		startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+
+		TableColumn<Chore, String> teamWorkCol = new TableColumn<>("Team task");
+		teamWorkCol.setCellValueFactory(cellData -> {
+			Boolean teamTask = cellData.getValue().isTeamTask();
+			return new SimpleStringProperty(teamTask ? "Yes" : "No");
+		});
+
+		// Divide the width into 3 parts
+		choreNameCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
+		frequencyCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
+		startTimeCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
+		teamWorkCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
+
+		// Add columns to the TableView
+		tableView.getColumns().add(choreNameCol);
+		tableView.getColumns().add(frequencyCol);
+		tableView.getColumns().add(startTimeCol);
+		tableView.getColumns().add(teamWorkCol);
+
+		BorderPane.setMargin(tableView, new javafx.geometry.Insets(50, 25, 25, 25));
+		this.setCenter(tableView);
+
+		ObservableList<Chore> choreList = FXCollections
+				.observableArrayList(accountManagement.getChoreListOfAUser(householdName, email));
+		tableView.setItems(choreList);
+
+		// action on add a chore button
+		this.addChoreButton.setOnAction(e -> {
+			openAddAChorePage();
+		});
+
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
+
+	private void openAddAChorePage() {
+		Stage newstage = new Stage();
+		newstage.setTitle("Add A Chore");
+		AddAChorePage AddAChorePage = new AddAChorePage(householdName, email);
+
+		Scene scene = new Scene(AddAChorePage, 400, 700);
+		newstage.setScene(scene);
+		newstage.show();
 	}
-		
+
 }

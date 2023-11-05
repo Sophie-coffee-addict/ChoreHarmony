@@ -1,6 +1,5 @@
 package application;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -51,8 +50,8 @@ public class CreateAccountPage extends StackPane {
 	StackPane responsePane = new StackPane();
 //	Label responseText = new Label("login");
 	Label outputLabel = new Label("");
-	Button ok = new Button("ok");
-	Button login = new Button("Log in");
+	Button ok = new Button("OK");
+	Button login = new Button("Log In");
 
 //	private void updateOutputLabel(String text) {
 //		outputLabel.setText(outputLabel.getText() + "\n" + text);
@@ -91,9 +90,10 @@ public class CreateAccountPage extends StackPane {
 		this.existHousehold.getStyleClass().add("button");
 		this.existHousehold.setTextFill(Color.web("#ffffff"));
 
-//		this.borderPane.setCenter(logo);
 		this.buttonHomepage.getChildren().addAll(createHousehold, existHousehold);
 		this.borderPane.setBottom(buttonHomepage);
+
+//		this.borderPane.setCenter(logo);
 
 		createHousehold.setOnAction(e -> {
 			borderPane.setVisible(false);
@@ -106,8 +106,6 @@ public class CreateAccountPage extends StackPane {
 		this.responsePane.setMaxWidth(220);
 		this.responsePane.setMaxHeight(150);
 		this.responsePane.setStyle("-fx-background-color: lightblue;");
-
-//		this.outputLabel.setMaxWidth(300);
 		this.responsePane.setMargin(outputLabel, new javafx.geometry.Insets(8, 15, 60, 15));
 		this.outputLabel.setWrapText(true);
 		this.outputLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
@@ -135,15 +133,15 @@ public class CreateAccountPage extends StackPane {
 
 		// set gridPane
 		this.grid.setStyle("-fx-background-color: #FAC8CD");
+//		this.setTop(titleLabel);
+		this.grid.setPadding(new Insets(35, 30, 20, 30));
+		ColumnConstraints col1 = new ColumnConstraints(350);
+		this.grid.getColumnConstraints().add(col1);
+		this.grid.setVgap(15);
+//		this.grid.setHgap(10);
 		this.titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 		this.titleLabel.setMaxWidth(400);
 		this.titleLabel.setAlignment(Pos.CENTER);
-//		this.setTop(titleLabel);
-		this.grid.setPadding(new Insets(50, 30, 20, 30));
-		ColumnConstraints col1 = new ColumnConstraints(350);
-		grid.getColumnConstraints().add(col1);
-		this.grid.setVgap(15);
-//		this.grid.setHgap(10);
 		this.householdLabel.setPrefWidth(350);
 //		this.householdLabel.setPrefHeight(30);
 		this.householdLabel.setFont(new Font(15));
@@ -159,12 +157,11 @@ public class CreateAccountPage extends StackPane {
 //		this.confirmPasswordLabel.setPrefSize(150, 30);
 //		this.confirmPasswordLabel.setFont(new Font(20));
 
-		this.registerButton.setPrefSize(100, 35);
+		this.registerButton.setPrefSize(350, 35);
 		this.registerButton.setStyle("-fx-font-weight: bold;");
 		this.registerButton.setFont(new Font(20));
 		this.registerButton.getStyleClass().add("button");
 		this.registerButton.setTextFill(Color.web("#ffffff"));
-		GridPane.setHalignment(registerButton, HPos.RIGHT);
 
 		this.householdNameField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
 		householdNameField.setPromptText("Household name");
@@ -291,7 +288,7 @@ public class CreateAccountPage extends StackPane {
 		newstage.setTitle("Login page");
 		LoginPage lgoinPage = new LoginPage();
 
-		Scene scene = new Scene(lgoinPage, 400, 800);
+		Scene scene = new Scene(lgoinPage, 400, 700);
 		newstage.setScene(scene);
 		newstage.show();
 	}

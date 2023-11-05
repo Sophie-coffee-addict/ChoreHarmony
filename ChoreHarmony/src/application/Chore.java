@@ -4,15 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Chore implements Serializable {
-	
-	
+
 	private String name;
 	private String frequency;
 	private String startTime;
 	private boolean teamTask;
-	private ArrayList<User> teamMemberList=new ArrayList<User>();
+	private ArrayList<User> teamMemberList = new ArrayList<User>();
 
-	public Chore(String name,String frequency,String startTime, boolean teamTask) {
+	public Chore(String name, String frequency, String startTime, boolean teamTask) {
 		super();
 		this.name = name;
 		this.frequency = frequency;
@@ -22,8 +21,7 @@ public class Chore implements Serializable {
 
 	@Override
 	public String toString() {
-		return "name: " + name + "   frequency:" + frequency + "  startTime:" + startTime + "  teamTask:"
-				+ teamTask;
+		return "name: " + name + "   frequency:" + frequency + "  startTime:" + startTime + "  teamTask:" + teamTask;
 	}
 
 	// add team member to this chore
@@ -62,11 +60,6 @@ public class Chore implements Serializable {
 	public void setTeamTask(boolean teamTask) {
 		this.teamTask = teamTask;
 	}
-
-
-
-	
-	
 
 	public ArrayList<User> getTeamMemberList() {
 		return teamMemberList;
