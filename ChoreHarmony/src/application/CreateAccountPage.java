@@ -8,6 +8,8 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -22,33 +24,30 @@ public class CreateAccountPage extends StackPane {
 
 //	Label outputLabel = new Label("");
 
+	StackPane rootStackPane = new StackPane();
+
 	// homepage
-	StackPane stackPane = new StackPane();
-	BorderPane borderPane = new BorderPane();
+	BorderPane homePageBorderPane = new BorderPane();
 	VBox buttonHomepage = new VBox();
 	Button createHousehold = new Button("CREATE A NEW HOUSDHOLD");
 	Button existHousehold = new Button("MY HOUSEHOLD HAS AN ACCOUNT");
-//	Image logoImage = new Image("logo.jpg");
-//	ImageView logo = new ImageView(logoImage);
+	Image logoImage = new Image("logo.jpeg");
+	ImageView logo = new ImageView(logoImage);
 
 	// create account page
 	Label titleLabel = new Label("Create a Household");
-	GridPane grid = new GridPane();
+	GridPane createAccountGridPane = new GridPane();
 	Label householdLabel = new Label("Step 1: Name your household.");
 	TextField householdNameField = new TextField();
 	Label creatorLabel = new Label("Step 2: Register an administrator.");
 	TextField nameField = new TextField();
-//	Label emailLabel = new Label("Email:");
 	TextField emailField = new TextField();
-//	Label passwordLabel = new Label("Password:");
 	PasswordField passwordField = new PasswordField();
-//	Label confirmPasswordLabel = new Label("Confirm Password:");
 	PasswordField confirmPasswordField = new PasswordField();
 	Button registerButton = new Button("Create");
 
 	// response page of registerButton
-	StackPane responsePane = new StackPane();
-//	Label responseText = new Label("login");
+	StackPane responseStackPane = new StackPane();
 	Label outputLabel = new Label("");
 	Button ok = new Button("OK");
 	Button login = new Button("Log In");
@@ -70,10 +69,10 @@ public class CreateAccountPage extends StackPane {
 
 	public CreateAccountPage() {
 		// set homepage(borderPane)
-		grid.setVisible(false);
-		grid.setDisable(true);
-		responsePane.setVisible(false);
-		responsePane.setDisable(true);
+		createAccountGridPane.setVisible(false);
+		createAccountGridPane.setDisable(true);
+		responseStackPane.setVisible(false);
+		responseStackPane.setDisable(true);
 
 		this.buttonHomepage.setSpacing(6);
 		BorderPane.setMargin(buttonHomepage, new javafx.geometry.Insets(0, 0, 20, 0));
@@ -91,22 +90,22 @@ public class CreateAccountPage extends StackPane {
 		this.existHousehold.setTextFill(Color.web("#ffffff"));
 
 		this.buttonHomepage.getChildren().addAll(createHousehold, existHousehold);
-		this.borderPane.setBottom(buttonHomepage);
+		this.homePageBorderPane.setBottom(buttonHomepage);
 
-//		this.borderPane.setCenter(logo);
+		this.homePageBorderPane.setCenter(logo);
 
 		createHousehold.setOnAction(e -> {
-			borderPane.setVisible(false);
-			borderPane.setDisable(true);
-			grid.setVisible(true);
-			grid.setDisable(false);
+			homePageBorderPane.setVisible(false);
+			homePageBorderPane.setDisable(true);
+			createAccountGridPane.setVisible(true);
+			createAccountGridPane.setDisable(false);
 		});
 
 		// set response page (stackPane)
-		this.responsePane.setMaxWidth(220);
-		this.responsePane.setMaxHeight(150);
-		this.responsePane.setStyle("-fx-background-color: lightblue;");
-		this.responsePane.setMargin(outputLabel, new javafx.geometry.Insets(8, 15, 60, 15));
+		this.responseStackPane.setMaxWidth(220);
+		this.responseStackPane.setMaxHeight(150);
+		this.responseStackPane.setStyle("-fx-background-color: lightblue;");
+		this.responseStackPane.setMargin(outputLabel, new javafx.geometry.Insets(8, 15, 60, 15));
 		this.outputLabel.setWrapText(true);
 		this.outputLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 		this.outputLabel.setContentDisplay(ContentDisplay.CENTER);
@@ -129,15 +128,14 @@ public class CreateAccountPage extends StackPane {
 		login.setVisible(false);
 		login.setDisable(true);
 
-		this.responsePane.getChildren().addAll(outputLabel, ok, login);
+		this.responseStackPane.getChildren().addAll(outputLabel, ok, login);
 
 		// set gridPane
-		this.grid.setStyle("-fx-background-color: #FAC8CD");
-//		this.setTop(titleLabel);
-		this.grid.setPadding(new Insets(35, 30, 20, 30));
+		this.createAccountGridPane.setStyle("-fx-background-color: #FAC8CD");
+		this.createAccountGridPane.setPadding(new Insets(35, 30, 20, 30));
 		ColumnConstraints col1 = new ColumnConstraints(350);
-		this.grid.getColumnConstraints().add(col1);
-		this.grid.setVgap(15);
+		this.createAccountGridPane.getColumnConstraints().add(col1);
+		this.createAccountGridPane.setVgap(15);
 //		this.grid.setHgap(10);
 		this.titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 		this.titleLabel.setMaxWidth(400);
@@ -147,15 +145,6 @@ public class CreateAccountPage extends StackPane {
 		this.householdLabel.setFont(new Font(15));
 		this.creatorLabel.setPrefWidth(350);
 		this.creatorLabel.setFont(new Font(15));
-//		this.nameLabel.setPrefWidth(80);
-//		this.nameLabel.setPrefHeight(30);
-//		this.nameLabel.setFont(new Font(20));
-//		this.emailLabel.setPrefSize(80, 30);
-//		this.emailLabel.setFont(new Font(20));
-//		this.passwordLabel.setPrefSize(80, 30);
-//		this.passwordLabel.setFont(new Font(20));
-//		this.confirmPasswordLabel.setPrefSize(150, 30);
-//		this.confirmPasswordLabel.setFont(new Font(20));
 
 		this.registerButton.setPrefSize(350, 35);
 		this.registerButton.setStyle("-fx-font-weight: bold;");
@@ -195,23 +184,15 @@ public class CreateAccountPage extends StackPane {
 		this.confirmPasswordField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
 		confirmPasswordField.setPromptText("Confirm the password");
 
-//		this.outputLabel.setWrapText(true);
-
-		this.grid.add(titleLabel, 0, 0);
-		this.grid.add(householdLabel, 0, 3);
-		this.grid.add(householdNameField, 0, 4);
-		this.grid.add(creatorLabel, 0, 6);
-		this.grid.add(nameField, 0, 7);
-//		this.grid.add(emailLabel, 0, 2);
-		this.grid.add(emailField, 0, 8);
-//		this.grid.add(passwordLabel, 0, 3);
-		this.grid.add(passwordField, 0, 9);
-//		this.grid.add(confirmPasswordLabel, 0, 4);
-		this.grid.add(confirmPasswordField, 0, 10);
-		this.grid.add(registerButton, 0, 12);
-//		this.grid.add(outputLabel, 0, 14, 1, 1);
-
-//		this.setCenter(grid);
+		this.createAccountGridPane.add(titleLabel, 0, 0);
+		this.createAccountGridPane.add(householdLabel, 0, 3);
+		this.createAccountGridPane.add(householdNameField, 0, 4);
+		this.createAccountGridPane.add(creatorLabel, 0, 6);
+		this.createAccountGridPane.add(nameField, 0, 7);
+		this.createAccountGridPane.add(emailField, 0, 8);
+		this.createAccountGridPane.add(passwordField, 0, 9);
+		this.createAccountGridPane.add(confirmPasswordField, 0, 10);
+		this.createAccountGridPane.add(registerButton, 0, 12);
 
 		this.registerButton.setOnAction(e -> {
 			String householdname = householdNameField.getText();
@@ -220,8 +201,8 @@ public class CreateAccountPage extends StackPane {
 			String password = passwordField.getText();
 			String confirmPassword = confirmPasswordField.getText();
 
-			responsePane.setVisible(true);
-			responsePane.setDisable(false);
+			responseStackPane.setVisible(true);
+			responseStackPane.setDisable(false);
 
 			if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
 					|| householdname.isEmpty()) {
@@ -262,16 +243,20 @@ public class CreateAccountPage extends StackPane {
 
 		});
 
+		this.existHousehold.setOnAction(e -> {
+			openLoginPage();
+		});
+
 		ok.setOnAction(e -> {
-			responsePane.setVisible(false);
-			responsePane.setDisable(true);
+			responseStackPane.setVisible(false);
+			responseStackPane.setDisable(true);
 		});
 
 		login.setOnAction(e -> {
 			openLoginPage();
 		});
 
-		this.getChildren().addAll(borderPane, grid, responsePane);//
+		this.getChildren().addAll(homePageBorderPane, createAccountGridPane, responseStackPane);
 
 //		redirectSystemOut();
 

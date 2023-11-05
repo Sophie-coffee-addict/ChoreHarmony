@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,7 +43,7 @@ public class ShowChoreListPage extends BorderPane {
 		this.addChoreButton.setPrefSize(120, 35);
 		this.addChoreButton.setStyle("-fx-font-weight: bold;-fx-text-fill: #ffffff; -fx-background-color: #6E51E4;");
 		this.addChoreButton.setFont(new Font(15));
-		BorderPane.setMargin(addChoreButton, new javafx.geometry.Insets(0, 0, 50, 265));
+		BorderPane.setMargin(addChoreButton, new javafx.geometry.Insets(0, 0, 50, 260));
 		this.setBottom(addChoreButton);
 
 		// set tableView
@@ -52,7 +53,7 @@ public class ShowChoreListPage extends BorderPane {
 		TableColumn<Chore, String> frequencyCol = new TableColumn<>("Frequency");
 		frequencyCol.setCellValueFactory(new PropertyValueFactory<>("frequency"));
 
-		TableColumn<Chore, Integer> startTimeCol = new TableColumn<>("Start time");
+		TableColumn<Chore, String> startTimeCol = new TableColumn<>("Start time");
 		startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 
 		TableColumn<Chore, String> teamWorkCol = new TableColumn<>("Team task");
@@ -66,6 +67,12 @@ public class ShowChoreListPage extends BorderPane {
 		frequencyCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
 		startTimeCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
 		teamWorkCol.prefWidthProperty().bind(tableView.widthProperty().divide(4));
+
+		// center text of each cell
+		centerAlignColumn(choreNameCol);
+		centerAlignColumn(frequencyCol);
+		centerAlignColumn(startTimeCol);
+		centerAlignColumn(teamWorkCol);
 
 		// Add columns to the TableView
 		tableView.getColumns().add(choreNameCol);
@@ -84,7 +91,24 @@ public class ShowChoreListPage extends BorderPane {
 		this.addChoreButton.setOnAction(e -> {
 			openAddAChorePage();
 		});
+	}
 
+	// center the content in each cell of the tableView
+	private <T> void centerAlignColumn(TableColumn<T, String> column) {
+		column.setCellFactory(tc -> new TableCell<>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+
+				if (item == null || empty) {
+					setText(null);
+					setAlignment(Pos.CENTER);
+				} else {
+					setText(item);
+					setAlignment(Pos.CENTER);
+				}
+			}
+		});
 	}
 
 	private void openAddAChorePage() {

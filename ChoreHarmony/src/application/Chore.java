@@ -19,10 +19,10 @@ public class Chore implements Serializable {
 		this.teamTask = teamTask;
 	}
 
-	@Override
-	public String toString() {
-		return "name: " + name + "   frequency:" + frequency + "  startTime:" + startTime + "  teamTask:" + teamTask;
-	}
+//	@Override
+//	public String toString() {
+//		return "name: " + name + "   frequency:" + frequency + "  startTime:" + startTime + "  teamTask:" + teamTask;
+//	}
 
 	// add team member to this chore
 	public void addTeamMember(User teamMember) {

@@ -23,27 +23,15 @@ public class LoginPage extends StackPane {
 	GridPane loginGrid = new GridPane();
 
 	Label heading = new Label("Login to Your Account");
-
-//	Text householdName = new Text("household Name:");
-//	Text emailHint = new Text("Email: ");
-//	Text passwordHint = new Text("Password: ");
-
 	TextField householdNameField = new TextField();
 	TextField emailField = new TextField();
 	PasswordField passwordField = new PasswordField();
-
 	Button loginButton = new Button("Log In");
 
 	// error page of login
 	StackPane errorPane = new StackPane();
 	Label errorLabel = new Label("");
 	Button ok = new Button("OK");
-
-//	HBox household = new HBox(householdName, householdName);
-//	HBox email = new HBox(emailHint, emailEntry);
-//	HBox password = new HBox(passwordHint, passwordEntry);
-
-//	VBox loginLayout = new VBox(heading, household, email, password, loginButton);
 
 	public LoginPage() {
 		this.errorPane.getChildren().addAll(errorLabel, ok);
@@ -98,11 +86,6 @@ public class LoginPage extends StackPane {
 		this.ok.setFont(new Font(15));
 		this.ok.setTranslateX(0);
 		this.ok.setTranslateY(30);
-
-//		this.heading.setFill(Color.GREEN);
-//		this.emailHint.getStyleClass().add("hinttext");
-//		this.passwordHint.getStyleClass().add("hinttext");
-//		this.loginLayout.setSpacing(10);
 
 		this.loginButton.setOnAction(e -> {
 			householdName = householdNameField.getText();

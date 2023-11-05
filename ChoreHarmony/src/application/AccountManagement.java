@@ -59,6 +59,7 @@ public class AccountManagement {
 		return null;
 	}
 
+	// get chore list of the specific user
 	public ArrayList<Chore> getChoreListOfAUser(String householdName, String email) {
 		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
 			if (teamMember.getEmail().equalsIgnoreCase(email)) {
