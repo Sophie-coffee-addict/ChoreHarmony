@@ -30,8 +30,7 @@ public class Database implements Serializable {
      * A unique identifier for the class, used during object serialization to ensure compatibility.
      */
     private static final long serialVersionUID = 1L;
-	private static Database single_instance = null;
-	private ArrayList<Household> households = new ArrayList<>();
+
 	
     /**
      * The constant file name for the database file.
