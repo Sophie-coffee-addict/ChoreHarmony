@@ -35,19 +35,18 @@ public class AccountManagement {
 	}
 
 	// Choose a chore for a team member
-	public Chore selectedChore(String householdName,String ChoreName, String frequency, String startTime,
+	public void selectedChore(String householdName, String email, String ChoreName, String frequency, String startTime,
 			boolean teamTask) {
 		Chore chore = new Chore(ChoreName, frequency, startTime, teamTask);
 		System.out.println(chore.toString());
 		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
-			//if (teamMember.getEmail().equalsIgnoreCase(email)) {
+			if (teamMember.getEmail().equalsIgnoreCase(email)) {
 				teamMember.addChore(chore); // add this chore into the chore list of this user
 				chore.addTeamMember(teamMember); // add this user into the team member list of this chore
 				getCurrentHousehold(householdName).addChore(chore);// add this chore into chores list of this household
-				return chore;
+				break;
 			}
-		//}
-		return null;
+		}
 	}
 
 	// get current household
@@ -59,19 +58,28 @@ public class AccountManagement {
 		}
 		return null;
 	}
-//get the HouseholdName from 0 index
-	public String getHouseholdName() {
-		ArrayList<Household> households = database.getHouseholds();
-		if (!households.isEmpty()) {
-		    Household firstHousehold = households.get(0); // get the 0 index household
-		    String householdName = firstHousehold.getName();
-		   return householdName;
-		} else {
-			throw new RuntimeException("No households in the database."); 
-		}
-		
-	}
-	
 
+	// get chore list of the specific user
+	public ArrayList<Chore> getChoreListOfAUser(String householdName, String email) {
+		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
+			if (teamMember.getEmail().equalsIgnoreCase(email)) {
+				return teamMember.getChoreList();
+			}
+		}
+		return null;
+	}
+
+	// get the HouseholdName from 0 index
+//	public String getHouseholdName() {
+//		ArrayList<Household> households = database.getHouseholds();
+//		if (!households.isEmpty()) {
+//			Household firstHousehold = households.get(0); // get the 0 index household
+//			String householdName = firstHousehold.getName();
+//			return householdName;
+//		} else {
+//			throw new RuntimeException("No households in the database.");
+//		}
+//
+//	}
 
 }

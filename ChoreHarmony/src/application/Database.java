@@ -30,7 +30,9 @@ public class Database implements Serializable {
      * A unique identifier for the class, used during object serialization to ensure compatibility.
      */
     private static final long serialVersionUID = 1L;
-    
+	private static Database single_instance = null;
+	private ArrayList<Household> households = new ArrayList<>();
+	
     /**
      * The constant file name for the database file.
      * This value can be modified to change the name of the database file.
@@ -55,7 +57,6 @@ public class Database implements Serializable {
 	 * @param households An ArrayList of Household objects to initialise the
 	 *                   database.
 	 */
-
 	public Database(ArrayList<Household> households) {
 		super();
 		this.households = households;
