@@ -1,13 +1,11 @@
 package application;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,23 +13,26 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class CreateAccountPage extends BorderPane {
+public class CreateAccountPage extends StackPane {
 	AccountManagement accountManagement = new AccountManagement();
 
-	Label outputLabel = new Label("");
+//	Label outputLabel = new Label("");
 
-	// Emma
+	// homepage
 	StackPane stackPane = new StackPane();
-//	Pane pane = new Pane();
-//	Button createHousehold = new Button("CREATE A NEW HOUSDHOLD");
-//	Button existHousehold = new Button("MY HOUSEHOLD HAS AN ACCOUNT");
+	BorderPane borderPane = new BorderPane();
+	VBox buttonHomepage = new VBox();
+	Button createHousehold = new Button("CREATE A NEW HOUSDHOLD");
+	Button existHousehold = new Button("MY HOUSEHOLD HAS AN ACCOUNT");
+//	Image logoImage = new Image("logo.jpg");
+//	ImageView logo = new ImageView(logoImage);
 
-	// Emma
-
+	// create account page
 	Label titleLabel = new Label("Create a Household");
 	GridPane grid = new GridPane();
 	Label householdLabel = new Label("Step 1: Name your household.");
@@ -46,26 +47,94 @@ public class CreateAccountPage extends BorderPane {
 	PasswordField confirmPasswordField = new PasswordField();
 	Button registerButton = new Button("Create");
 
-	private void updateOutputLabel(String text) {
-		outputLabel.setText(outputLabel.getText() + "\n" + text);
-	}
+	// response page of registerButton
+	StackPane responsePane = new StackPane();
+//	Label responseText = new Label("login");
+	Label outputLabel = new Label("");
+	Button ok = new Button("ok");
+	Button login = new Button("Log in");
 
-	private void redirectSystemOut() {
-		PrintStream printStream = new PrintStream(new OutputStream() {
-			@Override
-			public void write(int b) {
-				updateOutputLabel(String.valueOf((char) b));
-			}
-		});
+//	private void updateOutputLabel(String text) {
+//		outputLabel.setText(outputLabel.getText() + "\n" + text);
+//	}
 
-		System.setOut(printStream);
-	}
+//	private void redirectSystemOut() {
+//		PrintStream printStream = new PrintStream(new OutputStream() {
+//			@Override
+//			public void write(int b) {
+//				updateOutputLabel(String.valueOf((char) b));
+//			}
+//		});
+//
+//		System.setOut(printStream);
+//	}
 
 	public CreateAccountPage() {
+		// set homepage(borderPane)
+		grid.setVisible(false);
+		grid.setDisable(true);
+		responsePane.setVisible(false);
+		responsePane.setDisable(true);
 
-//		grid.setVisible(false);
-//		grid.setDisable(true);
-		this.setStyle("-fx-background-color: #FAC8CD");
+		this.buttonHomepage.setSpacing(6);
+		BorderPane.setMargin(buttonHomepage, new javafx.geometry.Insets(0, 0, 20, 0));
+
+		this.createHousehold.setPrefSize(400, 35);
+		this.createHousehold.setStyle("-fx-font-weight: bold;");
+		this.createHousehold.setFont(new Font(15));
+		this.createHousehold.getStyleClass().add("button");
+		this.createHousehold.setTextFill(Color.web("#ffffff"));
+
+		this.existHousehold.setPrefSize(400, 35);
+		this.existHousehold.setStyle("-fx-font-weight: bold;");
+		this.existHousehold.setFont(new Font(15));
+		this.existHousehold.getStyleClass().add("button");
+		this.existHousehold.setTextFill(Color.web("#ffffff"));
+
+//		this.borderPane.setCenter(logo);
+		this.buttonHomepage.getChildren().addAll(createHousehold, existHousehold);
+		this.borderPane.setBottom(buttonHomepage);
+
+		createHousehold.setOnAction(e -> {
+			borderPane.setVisible(false);
+			borderPane.setDisable(true);
+			grid.setVisible(true);
+			grid.setDisable(false);
+		});
+
+		// set response page (stackPane)
+		this.responsePane.setMaxWidth(220);
+		this.responsePane.setMaxHeight(150);
+		this.responsePane.setStyle("-fx-background-color: lightblue;");
+
+//		this.outputLabel.setMaxWidth(300);
+		this.responsePane.setMargin(outputLabel, new javafx.geometry.Insets(8, 15, 60, 15));
+		this.outputLabel.setWrapText(true);
+		this.outputLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
+		this.outputLabel.setContentDisplay(ContentDisplay.CENTER);
+
+		this.ok.setPrefSize(40, 25);
+		this.ok.setStyle("-fx-font-weight: bold;");
+		this.ok.setFont(new Font(12));
+		this.ok.getStyleClass().add("button");
+		this.ok.setTextFill(Color.web("#ffffff"));
+		this.ok.setTranslateX(0);
+		this.ok.setTranslateY(30);
+
+		this.login.setPrefSize(60, 25);
+		this.login.setStyle("-fx-font-weight: bold;");
+		this.login.setFont(new Font(12));
+		this.login.getStyleClass().add("button");
+		this.login.setTextFill(Color.web("#ffffff"));
+		this.login.setTranslateX(0);
+		this.login.setTranslateY(30);
+		login.setVisible(false);
+		login.setDisable(true);
+
+		this.responsePane.getChildren().addAll(outputLabel, ok, login);
+
+		// set gridPane
+		this.grid.setStyle("-fx-background-color: #FAC8CD");
 		this.titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 		this.titleLabel.setMaxWidth(400);
 		this.titleLabel.setAlignment(Pos.CENTER);
@@ -129,7 +198,7 @@ public class CreateAccountPage extends BorderPane {
 		this.confirmPasswordField.setStyle("-fx-font-size: 14px; -fx-font-style: italic;");
 		confirmPasswordField.setPromptText("Confirm the password");
 
-		this.outputLabel.setWrapText(true);//
+//		this.outputLabel.setWrapText(true);
 
 		this.grid.add(titleLabel, 0, 0);
 		this.grid.add(householdLabel, 0, 3);
@@ -143,12 +212,9 @@ public class CreateAccountPage extends BorderPane {
 //		this.grid.add(confirmPasswordLabel, 0, 4);
 		this.grid.add(confirmPasswordField, 0, 10);
 		this.grid.add(registerButton, 0, 12);
-		this.grid.add(outputLabel, 0, 14, 1, 1);
+//		this.grid.add(outputLabel, 0, 14, 1, 1);
 
-		this.setCenter(grid);
-
-//		this.pane.getChildren().addAll(createHousehold, existHousehold);
-//		this.stackPane.getChildren().addAll(grid);//
+//		this.setCenter(grid);
 
 		this.registerButton.setOnAction(e -> {
 			String householdname = householdNameField.getText();
@@ -157,14 +223,25 @@ public class CreateAccountPage extends BorderPane {
 			String password = passwordField.getText();
 			String confirmPassword = confirmPasswordField.getText();
 
+			responsePane.setVisible(true);
+			responsePane.setDisable(false);
+
 			if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
 					|| householdname.isEmpty()) {
-				updateOutputLabel("Please fill in all the fields.");
+				outputLabel.setText("Please fill in all the fields.");
+//				updateOutputLabel("Please fill in all the fields.");
+
 			} else if (!password.equals(confirmPassword)) {
-				updateOutputLabel("Password does not match. Please try again.");
+				outputLabel.setText("Password does not match. Please try again.");
+//				updateOutputLabel("Password does not match. Please try again.");
 			} else {
-				updateOutputLabel("Create successful!");
-				openLoginPage();
+				outputLabel.setText("Create successful!");
+//				updateOutputLabel("Create successful!");
+				ok.setVisible(false);
+				ok.setDisable(true);
+				login.setVisible(true);
+				login.setDisable(false);
+//				openLoginPage();
 				// ����create����
 				accountManagement.createHouseholdAccount(householdname, name, email, confirmPassword);
 
@@ -188,7 +265,18 @@ public class CreateAccountPage extends BorderPane {
 
 		});
 
-		redirectSystemOut();
+		ok.setOnAction(e -> {
+			responsePane.setVisible(false);
+			responsePane.setDisable(true);
+		});
+
+		login.setOnAction(e -> {
+			openLoginPage();
+		});
+
+		this.getChildren().addAll(borderPane, grid, responsePane);//
+
+//		redirectSystemOut();
 
 	}
 
