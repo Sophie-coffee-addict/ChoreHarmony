@@ -8,6 +8,8 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -21,7 +23,7 @@ public class CreateAccountPage extends StackPane {
 	AccountManagement accountManagement = new AccountManagement();
 	Stage stage;
 
-//	Label outputLabel = new Label("");
+   // Label outputLabel = new Label("");
 
 	StackPane rootStackPane = new StackPane();
 
@@ -30,8 +32,8 @@ public class CreateAccountPage extends StackPane {
 	VBox buttonHomepage = new VBox();
 	Button createHousehold = new Button("CREATE A NEW HOUSDHOLD");
 	Button existHousehold = new Button("MY HOUSEHOLD HAS AN ACCOUNT");
-//	Image logoImage = new Image("logo.jpeg");
-//	ImageView logo = new ImageView(logoImage);
+	Image logoImage = new Image("http://m.qpic.cn/psc?/V50JOf300WYtjc35pq2o0AqNeU05sXJM/ruAMsa53pVQWN7FLK88i5v4vSwIOoAwA4yYQrOH5WtnKPmtsqRwdGjNxMwCBv9mqkwnAYPDuevHL2ZQDnYZsD5dtb0szvyHvPw80BBFGxYo!/b&bo=LAFWAQAAAAABB1o!&rf=viewer_4");
+	ImageView logo = new ImageView(logoImage);
 
 	// create account page
 	Label titleLabel = new Label("Create a Household");
@@ -51,20 +53,7 @@ public class CreateAccountPage extends StackPane {
 	Button ok = new Button("OK");
 	Button login = new Button("Log In");
 
-//	private void updateOutputLabel(String text) {
-//		outputLabel.setText(outputLabel.getText() + "\n" + text);
-//	}
 
-//	private void redirectSystemOut() {
-//		PrintStream printStream = new PrintStream(new OutputStream() {
-//			@Override
-//			public void write(int b) {
-//				updateOutputLabel(String.valueOf((char) b));
-//			}
-//		});
-//
-//		System.setOut(printStream);
-//	}
 
 	public CreateAccountPage(Stage stage) {
 		this.stage = stage;
@@ -93,7 +82,7 @@ public class CreateAccountPage extends StackPane {
 		this.buttonHomepage.getChildren().addAll(createHousehold, existHousehold);
 		this.homePageBorderPane.setBottom(buttonHomepage);
 
-//		this.homePageBorderPane.setCenter(logo);
+      	this.homePageBorderPane.setCenter(logo);
 
 		createHousehold.setOnAction(e -> {
 			homePageBorderPane.setVisible(false);
@@ -208,12 +197,18 @@ public class CreateAccountPage extends StackPane {
 			if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
 					|| householdname.isEmpty()) {
 				outputLabel.setText("Please fill in all the fields.");
-//				updateOutputLabel("Please fill in all the fields.");
+				setTextFieldUneditable();
+				
 
-			} else if (!password.equals(confirmPassword)) {
+			}else if(householdname.contains(" ")||name.contains(" ")||email.contains(" ")||password.contains(" ")
+					|| confirmPassword.contains(" ")){
+				outputLabel.setText("No spaces allowed.");
+				setTextFieldUneditable();
+			}else if (!password.equals(confirmPassword)) {
 				outputLabel.setText("Password does not match. Please try again.");
-//				updateOutputLabel("Password does not match. Please try again.");
+				setTextFieldUneditable();
 			} else {
+				setTextFieldUneditable();
 				outputLabel.setText("Create successful!");
 //				updateOutputLabel("Create successful!");
 				ok.setVisible(false);
@@ -221,26 +216,11 @@ public class CreateAccountPage extends StackPane {
 				login.setVisible(true);
 				login.setDisable(false);
 //				openLoginPage();
-				// ����create����
+
 				accountManagement.createHouseholdAccount(householdname, name, email, confirmPassword);
 
 			}
 
-			/*
-			 * try(BufferedWriter writer = new BufferedWriter(new
-			 * FileWriter("ChoreHarmony\\userdata.txt",true))){
-			 * writer.write(householdname+" "); writer.write(name+" ");
-			 * writer.write(email+" "); writer.write(password+" ");
-			 * writer.write(confirmPassword+System.lineSeparator());
-			 * 
-			 * writer.close(); Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			 * alert.setTitle("Success"); alert.setContentText("Save Successed");
-			 * alert.showAndWait();
-			 * 
-			 * 
-			 * } catch (IOException e1) { // TODO Auto-generated catch block
-			 * e1.printStackTrace(); }
-			 */
 
 		});
 
@@ -251,6 +231,7 @@ public class CreateAccountPage extends StackPane {
 		ok.setOnAction(e -> {
 			responseStackPane.setVisible(false);
 			responseStackPane.setDisable(true);
+			setTextFieldEditable();
 		});
 
 		login.setOnAction(e -> {
@@ -269,6 +250,22 @@ public class CreateAccountPage extends StackPane {
 		return email.matches(emailPattern);
 	}
 
+	private void setTextFieldUneditable() {
+		householdNameField.setEditable(false);
+		nameField.setEditable(false);
+		emailField.setEditable(false);
+		passwordField.setEditable(false);
+		confirmPasswordField.setEditable(false);
+	}
+	
+	private void setTextFieldEditable() {
+		householdNameField.setEditable(true);
+		nameField.setEditable(true);
+		emailField.setEditable(true);
+		passwordField.setEditable(true);
+		confirmPasswordField.setEditable(true);
+	}
+	
 	private void openLoginPage() {
 		stage.setTitle("Login page");
 		LoginPage lgoinPage = new LoginPage(stage);
