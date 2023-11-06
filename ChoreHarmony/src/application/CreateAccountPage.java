@@ -8,8 +8,6 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -21,6 +19,7 @@ import javafx.stage.Stage;
 
 public class CreateAccountPage extends StackPane {
 	AccountManagement accountManagement = new AccountManagement();
+	Stage stage;
 
 //	Label outputLabel = new Label("");
 
@@ -31,8 +30,8 @@ public class CreateAccountPage extends StackPane {
 	VBox buttonHomepage = new VBox();
 	Button createHousehold = new Button("CREATE A NEW HOUSDHOLD");
 	Button existHousehold = new Button("MY HOUSEHOLD HAS AN ACCOUNT");
-	Image logoImage = new Image("logo.jpeg");
-	ImageView logo = new ImageView(logoImage);
+//	Image logoImage = new Image("logo.jpeg");
+//	ImageView logo = new ImageView(logoImage);
 
 	// create account page
 	Label titleLabel = new Label("Create a Household");
@@ -67,7 +66,9 @@ public class CreateAccountPage extends StackPane {
 //		System.setOut(printStream);
 //	}
 
-	public CreateAccountPage() {
+	public CreateAccountPage(Stage stage) {
+		this.stage = stage;
+
 		// set homepage(borderPane)
 		createAccountGridPane.setVisible(false);
 		createAccountGridPane.setDisable(true);
@@ -92,7 +93,7 @@ public class CreateAccountPage extends StackPane {
 		this.buttonHomepage.getChildren().addAll(createHousehold, existHousehold);
 		this.homePageBorderPane.setBottom(buttonHomepage);
 
-		this.homePageBorderPane.setCenter(logo);
+//		this.homePageBorderPane.setCenter(logo);
 
 		createHousehold.setOnAction(e -> {
 			homePageBorderPane.setVisible(false);
@@ -269,12 +270,11 @@ public class CreateAccountPage extends StackPane {
 	}
 
 	private void openLoginPage() {
-		Stage newstage = new Stage();
-		newstage.setTitle("Login page");
-		LoginPage lgoinPage = new LoginPage();
+		stage.setTitle("Login page");
+		LoginPage lgoinPage = new LoginPage(stage);
 
 		Scene scene = new Scene(lgoinPage, 400, 700);
-		newstage.setScene(scene);
-		newstage.show();
+		stage.setScene(scene);
+		stage.show();
 	}
 }

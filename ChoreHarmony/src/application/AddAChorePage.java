@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class AddAChorePage extends BorderPane {
+	Stage stage;
 	String email;
 	String householdName;
 //	Chore chore = new Chore("", "", "", false);
@@ -52,7 +53,8 @@ public class AddAChorePage extends BorderPane {
 
 	Button addButton = new Button("Add");
 
-	public AddAChorePage(String householdName, String email) {
+	public AddAChorePage(Stage stage, String householdName, String email) {
+		this.stage = stage;
 		this.householdName = householdName;
 		this.email = email;
 
@@ -135,11 +137,10 @@ public class AddAChorePage extends BorderPane {
 	}
 
 	private void openShowChoreListPage() {
-		Stage newstage = new Stage();
-		newstage.setTitle("Chore List");
-		ShowChoreListPage choreListPage = new ShowChoreListPage(householdName, email);
+		stage.setTitle("Chore List");
+		ShowChoreListPage choreListPage = new ShowChoreListPage(stage, householdName, email);
 		Scene scene = new Scene(choreListPage, 400, 700);
-		newstage.setScene(scene);
-		newstage.show();
+		stage.setScene(scene);
+		stage.show();
 	}
 }

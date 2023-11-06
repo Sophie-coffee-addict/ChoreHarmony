@@ -15,7 +15,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Register");
 
-		CreateAccountPage register = new CreateAccountPage();
+		CreateAccountPage register = new CreateAccountPage(primaryStage);
 
 		Scene scene = new Scene(register, 400, 700);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

@@ -12,15 +12,18 @@ public class AccountManagement {
 	// create household account and add it into households arrayList
 	public void createHouseholdAccount(String householdName, String creatorName, String email, String password) {
 		Household household = new Household(householdName);
-		database.addHousehold(household);
 
 		User creator = new User(creatorName, email, password, true);
 		household.addUser(creator);
+		database.addHousehold(household);
+		database.saveData();
 	}
 
 	// login
 	public boolean userExist(String householdName, String email, String password) {
 		boolean exist = false;
+		// check whether a household exist with the name;
+		// if not show error, if only household exists, then loop through the useres
 		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
 			if (teamMember.getEmail().equalsIgnoreCase(email) && teamMember.getPassword().equalsIgnoreCase(password)) {
 				exist = true;
@@ -47,6 +50,7 @@ public class AccountManagement {
 				break;
 			}
 		}
+		database.saveData();
 	}
 
 	// get current household

@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class LoginPage extends StackPane {
+	Stage stage;
 	String email;
 	String householdName;
 	AccountManagement accountManagement = new AccountManagement();
@@ -33,7 +34,8 @@ public class LoginPage extends StackPane {
 	Label errorLabel = new Label("");
 	Button ok = new Button("OK");
 
-	public LoginPage() {
+	public LoginPage(Stage stage) {
+		this.stage = stage;
 		this.errorPane.getChildren().addAll(errorLabel, ok);
 		this.getChildren().addAll(loginGrid, errorPane);
 		errorPane.setVisible(false);
@@ -119,13 +121,12 @@ public class LoginPage extends StackPane {
 	}
 
 	private void openAddAChorePage() {
-		Stage newstage = new Stage();
-		newstage.setTitle("Add A Chore");
-		AddAChorePage AddAChorePage = new AddAChorePage(householdName, email);
+		stage.setTitle("Add A Chore");
+		AddAChorePage AddAChorePage = new AddAChorePage(stage, householdName, email);
 
 		Scene scene = new Scene(AddAChorePage, 400, 700);
-		newstage.setScene(scene);
-		newstage.show();
+		stage.setScene(scene);
+		stage.show();
 	}
 //
 //	private void showError(String message) {
