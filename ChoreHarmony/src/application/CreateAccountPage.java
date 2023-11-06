@@ -23,8 +23,6 @@ public class CreateAccountPage extends StackPane {
 	AccountManagement accountManagement = new AccountManagement();
 	Stage stage;
 
-   // Label outputLabel = new Label("");
-
 	StackPane rootStackPane = new StackPane();
 
 	// homepage
@@ -32,7 +30,8 @@ public class CreateAccountPage extends StackPane {
 	VBox buttonHomepage = new VBox();
 	Button createHousehold = new Button("CREATE A NEW HOUSDHOLD");
 	Button existHousehold = new Button("MY HOUSEHOLD HAS AN ACCOUNT");
-	Image logoImage = new Image("http://m.qpic.cn/psc?/V50JOf300WYtjc35pq2o0AqNeU05sXJM/ruAMsa53pVQWN7FLK88i5v4vSwIOoAwA4yYQrOH5WtnKPmtsqRwdGjNxMwCBv9mqkwnAYPDuevHL2ZQDnYZsD5dtb0szvyHvPw80BBFGxYo!/b&bo=LAFWAQAAAAABB1o!&rf=viewer_4");
+	Image logoImage = new Image(
+			"http://m.qpic.cn/psc?/V50JOf300WYtjc35pq2o0AqNeU05sXJM/ruAMsa53pVQWN7FLK88i5v4vSwIOoAwA4yYQrOH5WtnKPmtsqRwdGjNxMwCBv9mqkwnAYPDuevHL2ZQDnYZsD5dtb0szvyHvPw80BBFGxYo!/b&bo=LAFWAQAAAAABB1o!&rf=viewer_4");
 	ImageView logo = new ImageView(logoImage);
 
 	// create account page
@@ -52,8 +51,6 @@ public class CreateAccountPage extends StackPane {
 	Label outputLabel = new Label("");
 	Button ok = new Button("OK");
 	Button login = new Button("Log In");
-
-
 
 	public CreateAccountPage(Stage stage) {
 		this.stage = stage;
@@ -82,8 +79,8 @@ public class CreateAccountPage extends StackPane {
 		this.buttonHomepage.getChildren().addAll(createHousehold, existHousehold);
 		this.homePageBorderPane.setBottom(buttonHomepage);
 
-      	this.homePageBorderPane.setCenter(logo);
-      	this.homePageBorderPane.setStyle("-fx-background-color: #ffffff");
+		this.homePageBorderPane.setCenter(logo);
+		this.homePageBorderPane.setStyle("-fx-background-color: #ffffff");
 
 		createHousehold.setOnAction(e -> {
 			homePageBorderPane.setVisible(false);
@@ -197,31 +194,27 @@ public class CreateAccountPage extends StackPane {
 
 			if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
 					|| householdname.isEmpty()) {
-				outputLabel.setText("Please fill in all the fields.");
+				outputLabel.setText("Please fill in all the fields!");
 				setTextFieldUneditable();
-				
-
-			}else if(householdname.contains(" ")||name.contains(" ")||email.contains(" ")||password.contains(" ")
-					|| confirmPassword.contains(" ")){
-				outputLabel.setText("No spaces allowed.");
+			} else if (householdname.contains(" ") || name.contains(" ") || email.contains(" ")
+					|| password.contains(" ") || confirmPassword.contains(" ")) {
+				outputLabel.setText("No spaces allowed!");
 				setTextFieldUneditable();
-			}else if (!password.equals(confirmPassword)) {
-				outputLabel.setText("Password does not match. Please try again.");
+			} else if (!password.equals(confirmPassword)) {
+				outputLabel.setText("Password does not match! ");
+				setTextFieldUneditable();
+			} else if (!isValidEmailFormat(email)) {
+				outputLabel.setText("Email format is invalid!");
 				setTextFieldUneditable();
 			} else {
 				setTextFieldUneditable();
 				outputLabel.setText("Create successful!");
-//				updateOutputLabel("Create successful!");
 				ok.setVisible(false);
 				ok.setDisable(true);
 				login.setVisible(true);
 				login.setDisable(false);
-//				openLoginPage();
-
 				accountManagement.createHouseholdAccount(householdname, name, email, confirmPassword);
-
 			}
-
 
 		});
 
@@ -241,8 +234,6 @@ public class CreateAccountPage extends StackPane {
 
 		this.getChildren().addAll(homePageBorderPane, createAccountGridPane, responseStackPane);
 
-//		redirectSystemOut();
-
 	}
 
 	// Use regular expressions to verify Email format
@@ -258,7 +249,7 @@ public class CreateAccountPage extends StackPane {
 		passwordField.setEditable(false);
 		confirmPasswordField.setEditable(false);
 	}
-	
+
 	private void setTextFieldEditable() {
 		householdNameField.setEditable(true);
 		nameField.setEditable(true);
@@ -266,7 +257,7 @@ public class CreateAccountPage extends StackPane {
 		passwordField.setEditable(true);
 		confirmPasswordField.setEditable(true);
 	}
-	
+
 	private void openLoginPage() {
 		stage.setTitle("Login page");
 		LoginPage lgoinPage = new LoginPage(stage);
