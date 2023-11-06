@@ -83,6 +83,7 @@ public class CreateAccountPage extends StackPane {
 		this.homePageBorderPane.setBottom(buttonHomepage);
 
       	this.homePageBorderPane.setCenter(logo);
+      	this.homePageBorderPane.setStyle("-fx-background-color: #ffffff");
 
 		createHousehold.setOnAction(e -> {
 			homePageBorderPane.setVisible(false);
