@@ -22,12 +22,15 @@ public class AccountManagement {
 	// login
 	public boolean userExist(String householdName, String email, String password) {
 		boolean exist = false;
-		// check whether a household exist with the name;
-		// if not show error, if only household exists, then loop through the useres
-		for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
-			if (teamMember.getEmail().equalsIgnoreCase(email) && teamMember.getPassword().equalsIgnoreCase(password)) {
-				exist = true;
-				break;
+		for (Household household : database.getHouseholds()) {
+			if (household.getName().equals(householdName)) {
+				for (User teamMember : getCurrentHousehold(householdName).getUsers()) {
+					if (teamMember.getEmail().equalsIgnoreCase(email)
+							&& teamMember.getPassword().equalsIgnoreCase(password)) {
+						exist = true;
+						break;
+					}
+				}
 			}
 		}
 		if (exist) {
@@ -72,18 +75,5 @@ public class AccountManagement {
 		}
 		return null;
 	}
-
-	// get the HouseholdName from 0 index
-//	public String getHouseholdName() {
-//		ArrayList<Household> households = database.getHouseholds();
-//		if (!households.isEmpty()) {
-//			Household firstHousehold = households.get(0); // get the 0 index household
-//			String householdName = firstHousehold.getName();
-//			return householdName;
-//		} else {
-//			throw new RuntimeException("No households in the database.");
-//		}
-//
-//	}
 
 }

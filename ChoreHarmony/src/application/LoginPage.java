@@ -102,7 +102,7 @@ public class LoginPage extends StackPane {
 			} else {
 				errorPane.setVisible(true);
 				errorPane.setDisable(false);
-				errorLabel.setText("Login failed, please check the household name, your email and password.");
+				errorLabel.setText("Login failed! Please check the household name, your email and password.");
 
 				householdNameField.clear();
 				emailField.clear();

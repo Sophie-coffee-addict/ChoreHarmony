@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -25,14 +24,13 @@ public class AddAChorePage extends StackPane {
 
 	AccountManagement accountManagement = new AccountManagement();
 
-	
 	StackPane rootStackPane = new StackPane();
 	BorderPane addChoreBorderPane = new BorderPane();
-	
+	GridPane addChore = new GridPane();
+
 	ObservableList<String> choreOptions = FXCollections.observableArrayList("Mow lawn", "Wash dishes", "Feed cats",
 			"Laundry");
 	final ComboBox choreBox = new ComboBox(choreOptions);
-
 
 	ObservableList<String> frequencyOptions = FXCollections.observableArrayList("Daily", "Weekly", "Monthly",
 			"Quarterly", "Yearly");
@@ -49,9 +47,6 @@ public class AddAChorePage extends StackPane {
 			"Emma");
 	final ComboBox teamBox = new ComboBox(TeamMemberOptions);
 
-	BorderPane addChoreLayout = new BorderPane();
-	GridPane addChore = new GridPane();
-
 	Label heading = new Label("Choose A Chore");
 	Label chooseChoreHint = new Label("Chores: ");
 	Label frequencyHint = new Label("Frequency: ");
@@ -59,15 +54,13 @@ public class AddAChorePage extends StackPane {
 	Label taskTypeHint = new Label("Team work:");
 	Label teamHint = new Label("Team members: ");
 
-	 Button addButton = new Button("Add");
+	Button addButton = new Button("Add");
 
-	
 	// response page of addChoreButton
-		StackPane responseStackPane = new StackPane();
-		Label outputLabel = new Label("");
-		Button ok = new Button("OK");
-	
-	 
+	StackPane responseStackPane = new StackPane();
+	Label outputLabel = new Label("");
+	Button ok = new Button("OK");
+
 	public AddAChorePage(Stage stage, String householdName, String email) {
 		this.stage = stage;
 		this.householdName = householdName;
@@ -75,6 +68,9 @@ public class AddAChorePage extends StackPane {
 
 		teamHint.setDisable(true);
 		teamBox.setDisable(true);
+
+		responseStackPane.setVisible(false);
+		responseStackPane.setDisable(true);
 
 		this.setStyle("-fx-background-color: #FAC8CD");
 
@@ -88,9 +84,6 @@ public class AddAChorePage extends StackPane {
 		this.addChore.setVgap(20);
 		this.addChore.setHgap(25);
 
-		responseStackPane.setVisible(false);
-		responseStackPane.setDisable(true);
-		
 		this.chooseChoreHint.setStyle("-fx-font-weight: bold;-fx-font-size: 15px");
 		this.frequencyHint.setStyle("-fx-font-weight: bold;-fx-font-size: 15px");
 		this.timingHint.setStyle("-fx-font-weight: bold;-fx-font-size: 15px");
@@ -131,17 +124,13 @@ public class AddAChorePage extends StackPane {
 		this.outputLabel.setContentDisplay(ContentDisplay.CENTER);
 
 		this.ok.setPrefSize(40, 25);
-		this.ok.setStyle("-fx-font-weight: bold;");
-		this.ok.setFont(new Font(12));
-		this.ok.getStyleClass().add("button");
-		this.ok.setTextFill(Color.web("#ffffff"));
+		this.ok.setStyle("-fx-font-weight: bold;-fx-text-fill: #ffffff; -fx-background-color: #6E51E4;");
+		this.ok.setFont(new Font(15));
 		this.ok.setTranslateX(0);
 		this.ok.setTranslateY(30);
-		
+
 		this.responseStackPane.getChildren().addAll(outputLabel, ok);
-		
-		
-		
+
 		isTeamTaskCheckBox.setOnAction(event -> {
 			if (isTeamTaskCheckBox.isSelected()) {
 				teamHint.setDisable(false);
@@ -170,28 +159,27 @@ public class AddAChorePage extends StackPane {
 				teamTask = true;
 			}
 
+			if (ChoreName == null || Frequency == null || startTime == null
+					|| (isTeamTaskCheckBox.isSelected() && teamBox.getValue() == null)
+					|| (!isTeamTaskCheckBox.isSelected() && !notTeamTaskCheckBox.isSelected())) {
+				// System.out.println("Please select all items.");
+				outputLabel.setText("Please select all items!");
+				responseStackPane.setVisible(true);
+				responseStackPane.setDisable(false);
 
-			if (ChoreName==null || Frequency==null|| startTime==null||!isTeamTaskCheckBox.isSelected() && !notTeamTaskCheckBox.isSelected()) {
-				//System.out.println("Please check all options");
-			outputLabel.setText("Please check all options!");			
-			
-			}else {
-
-			accountManagement.selectedChore(householdName, email, ChoreName, Frequency, startTime, teamTask);
-			openShowChoreListPage();
-			ok.setVisible(false);
-			ok.setDisable(true);
+			} else {
+				accountManagement.selectedChore(householdName, email, ChoreName, Frequency, startTime, teamTask);
+				openShowChoreListPage();
 			}
-			
-			
+
 		});
-		
+
 		ok.setOnAction(e -> {
 			responseStackPane.setVisible(false);
 			responseStackPane.setDisable(true);
 
 		});
-		
+
 		this.getChildren().addAll(addChoreBorderPane, responseStackPane);
 	}
 
