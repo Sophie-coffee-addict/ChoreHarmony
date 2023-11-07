@@ -192,28 +192,19 @@ public class CreateAccountPage extends StackPane {
 			responseStackPane.setVisible(true);
 			responseStackPane.setDisable(false);
 
-			if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-					|| householdname.isEmpty()) {
-				outputLabel.setText("Please fill in all the fields!");
+			String message = this.validateData(householdname, name, email, password, confirmPassword);
+
+			if (message.equals("Create successful!")) {
 				setTextFieldUneditable();
-			} else if (householdname.contains(" ") || name.contains(" ") || email.contains(" ")
-					|| password.contains(" ") || confirmPassword.contains(" ")) {
-				outputLabel.setText("No spaces allowed!");
-				setTextFieldUneditable();
-			} else if (!password.equals(confirmPassword)) {
-				outputLabel.setText("Password does not match! ");
-				setTextFieldUneditable();
-			} else if (!isValidEmailFormat(email)) {
-				outputLabel.setText("Email format is invalid!");
-				setTextFieldUneditable();
-			} else {
-				setTextFieldUneditable();
-				outputLabel.setText("Create successful!");
+				outputLabel.setText(message);
 				ok.setVisible(false);
 				ok.setDisable(true);
 				login.setVisible(true);
 				login.setDisable(false);
 				accountManagement.createHouseholdAccount(householdname, name, email, confirmPassword);
+			} else {
+				outputLabel.setText(message);
+				setTextFieldUneditable();
 			}
 
 		});
@@ -234,6 +225,24 @@ public class CreateAccountPage extends StackPane {
 
 		this.getChildren().addAll(homePageBorderPane, createAccountGridPane, responseStackPane);
 
+	}
+
+	// check if the input information correct
+	private String validateData(String householdname, String name, String email, String password,
+			String confirmPassword) {
+		if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
+				|| householdname.isEmpty()) {
+			return "Please fill in all the fields!";
+		} else if (householdname.contains(" ") || name.contains(" ") || email.contains(" ") || password.contains(" ")
+				|| confirmPassword.contains(" ")) {
+			return "No spaces allowed!";
+		} else if (!password.equals(confirmPassword)) {
+			return "Password does not match! ";
+
+		} else if (!isValidEmailFormat(email)) {
+			return "Email format is invalid!";
+		}
+		return "Create successful!";
 	}
 
 	// Use regular expressions to verify Email format

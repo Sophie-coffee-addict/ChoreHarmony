@@ -95,22 +95,20 @@ public class LoginPage extends StackPane {
 			String password = passwordField.getText();
 			// Database db = Database.getInstance();
 
-			if (!email.isEmpty() && !password.isEmpty()
-					&& accountManagement.userExist(householdName, email, password)) {
-				// success,jump into AddAChorePage
-				openAddAChorePage();
-			} else {
+			String errorMessage = this.validateData(householdName, email, password);
+
+			if (errorMessage.equals("Login failed! Please check the household name, your email and password!")) {
 				errorPane.setVisible(true);
 				errorPane.setDisable(false);
-				errorLabel.setText("Login failed! Please check the household name, your email and password.");
-
+				errorLabel.setText(errorMessage);
 				householdNameField.clear();
 				emailField.clear();
 				passwordField.clear();
 				emailField.setPromptText("Your email");
 				passwordField.setPromptText("Your password");
 				householdNameField.setPromptText("Household name");
-//				showError("Login failed, please check your email and password.");
+			} else if (errorMessage.equals("")) {
+				openAddAChorePage();
 			}
 		});
 
@@ -118,6 +116,14 @@ public class LoginPage extends StackPane {
 			errorPane.setVisible(false);
 			errorPane.setDisable(true);
 		});
+	}
+
+	// check if the input information correct
+	private String validateData(String householdname, String email, String password) {
+		if (email.isEmpty() || password.isEmpty() || !accountManagement.userExist(householdName, email, password)) {
+			return "Login failed! Please check the household name, your email and password!";
+		}
+		return "";
 	}
 
 	private void openAddAChorePage() {
