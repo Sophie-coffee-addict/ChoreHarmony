@@ -151,27 +151,27 @@ public class AddAChorePage extends StackPane {
 		});
 
 		this.addButton.setOnAction(e -> {
-			String ChoreName = (String) choreBox.getValue();
-			String Frequency = (String) frequencyBox.getValue();
+			String choreName = (String) choreBox.getValue();
+			String frequency = (String) frequencyBox.getValue();
 			String startTime = (String) timeBox.getValue();
 			Boolean teamTask = false;
 			if (isTeamTaskCheckBox.isSelected()) {
 				teamTask = true;
 			}
 
-			if (ChoreName == null || Frequency == null || startTime == null
-					|| (isTeamTaskCheckBox.isSelected() && teamBox.getValue() == null)
-					|| (!isTeamTaskCheckBox.isSelected() && !notTeamTaskCheckBox.isSelected())) {
+			String errorMessage = this.validateData(choreName, frequency, startTime, isTeamTaskCheckBox,
+					notTeamTaskCheckBox);
+
+			if (errorMessage.equals("Please select all items!")) {
 				// System.out.println("Please select all items.");
 				outputLabel.setText("Please select all items!");
 				responseStackPane.setVisible(true);
 				responseStackPane.setDisable(false);
 
-			} else {
-				accountManagement.selectedChore(householdName, email, ChoreName, Frequency, startTime, teamTask);
+			} else if (errorMessage.equals("")) {
+				accountManagement.selectedChore(householdName, email, choreName, frequency, startTime, teamTask);
 				openShowChoreListPage();
 			}
-
 		});
 
 		ok.setOnAction(e -> {
@@ -181,6 +181,16 @@ public class AddAChorePage extends StackPane {
 		});
 
 		this.getChildren().addAll(addChoreBorderPane, responseStackPane);
+	}
+
+	private String validateData(String choreName, String frequency, String startTime, CheckBox isTeamTaskCheckBox,
+			CheckBox notTeamTaskCheckBox) {
+		if (choreName == null || frequency == null || startTime == null
+				|| (isTeamTaskCheckBox.isSelected() && teamBox.getValue() == null)
+				|| (!isTeamTaskCheckBox.isSelected() && !notTeamTaskCheckBox.isSelected())) {
+			return "Please select all items!";
+		}
+		return "";
 	}
 
 	private void openShowChoreListPage() {
